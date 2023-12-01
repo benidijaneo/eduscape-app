@@ -1,0 +1,30 @@
+.cateCard {
+  width: 252px;
+  height: 344px;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: contrast(50%);
+  }
+
+  .desc {
+    font-weight: 300;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 24px;
+    position: absolute;
+    left: 15px;
+    top: 40px;
+  }
+}
