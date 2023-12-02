@@ -1,18 +1,23 @@
-import React from "react";
-import { Navbar } from "./components/navbar/Navbar";
-import { Footer } from "./components/footer/Footer";
-import { Home } from "./pages/home/Home";
-import { Gigs } from "./pages/gigs/Gigs";
-import { Gig } from "./pages/gig/Gig";
-import { Add } from "./pages/add/Add";
-import { Orders } from "./pages/orders/Orders";
-import { Messages } from "./pages/messages/Messages";
-import { Message } from "./pages/message/Message";
-import { MyGigs } from "./pages/myGigs/MyGigs";
+import React from 'react';
+import { Navbar } from './components/navbar/Navbar';
+import { Footer } from './components/footer/Footer';
+import { Home } from './pages/home/Home';
+import { Gigs } from './pages/gigs/Gigs';
+import { Gig } from './pages/gig/Gig';
+import { Add } from './pages/add/Add';
+import { Orders } from './pages/orders/Orders';
+import { Messages } from './pages/messages/Messages';
+import { Message } from './pages/message/Message';
+import { MyGigs } from './pages/myGigs/MyGigs';
+import { Login } from './pages/login/Login';
 
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+} from 'react-router-dom';
 
-import "./App.scss";
+import './App.scss';
 
 function App() {
   const Layout = () => {
@@ -27,40 +32,48 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       element: <Layout />,
       children: [
         {
-          path: "/",
+          path: '/',
           element: <Home />,
         },
         {
-          path: "/gigs",
+          path: '/gigs',
           element: <Gigs />,
         },
         {
-          path: "/gig/:id",
+          path: '/gig/:id',
           element: <Gig />,
         },
         {
-          path: "/orders",
+          path: '/orders',
           element: <Orders />,
         },
         {
-          path: "/mygigs",
+          path: '/mygigs',
           element: <MyGigs />,
         },
         {
-          path: "/add",
+          path: '/add',
           element: <Add />,
         },
         {
-          path: "/messages",
+          path: '/messages',
           element: <Messages />,
         },
         {
-          path: "/message/:id",
+          path: '/message/:id',
           element: <Message />,
+        },
+        {
+          path: '/message/:id',
+          element: <Message />,
+        },
+        {
+          path: '/login',
+          element: <Login />,
         },
       ],
     },
