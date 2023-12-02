@@ -42,15 +42,6 @@
       .left {
         display: flex;
         align-items: center;
-        gap: 20px;
-
-        span {
-          font-size: 13px;
-        }
-      }
-      .right {
-        display: flex;
-        align-items: center;
         gap: 30px;
 
         .social {
@@ -62,6 +53,15 @@
           display: flex;
           align-items: center;
           gap: 10px;
+        }
+      }
+      .right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        span {
+          font-size: 13px;
         }
       }
     }
