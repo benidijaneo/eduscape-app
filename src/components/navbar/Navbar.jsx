@@ -54,10 +54,10 @@ export const Navbar = () => {
                   {currentUser?.isSeller && (
                     <>
                       <Link className="link" to="/mygigs">
-                        Gigs
+                        Services
                       </Link>
                       <Link className="link" to="/add">
-                        Add New Gig
+                        Add New Service
                       </Link>
                     </>
                   )}
