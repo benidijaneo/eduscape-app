@@ -1,28 +1,49 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./GigCard.scss";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './GigCard.scss';
+import { useQuery } from '@tanstack/react-query';
+import newRequest from '../../utils/newRequest';
 
 export const GigCard = ({ item }) => {
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['gigUser'],
+    queryFn: () =>
+      newRequest.get(`/users/${item.userId}`).then((res) => {
+        return res.data;
+      }),
+  });
+
   return (
     <Link to="/gig/123" className="link">
       <div className="gigCard">
-        <img src="" alt="" />
+        <img src={item.cover} alt="" />
         <div className="info">
-          <div className="user">
-            <img src={item.pp} alt="" />
-            <span>{item.username}</span>
-          </div>
+          {isLoading ? (
+            'loading'
+          ) : error ? (
+            'error'
+          ) : (
+            <div className="user">
+              <img src={data.img || '/img/noavatar.jpg'} alt="" />
+              <span>{data.username}</span>
+            </div>
+          )}
           <p>{item.desc}</p>
           <div className="star">
             <img src="./img/star.png" alt="" />
-            <span>{item.star}</span>
+            <span>
+              {Math.round(item.totalStars / item.startNumber) ===
+              Infinity
+                ? ''
+                : Math.round(item.totalStars / item.startNumber)}
+            </span>
           </div>
         </div>
         <hr />
         <div className="details">
           <img src="./img/heart.png" alt="" />
           <span>STARTING AT</span>
-          <h2>${item.price}</h2>
+          <h2>Php {item.price}</h2>
         </div>
       </div>
     </Link>

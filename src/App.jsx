@@ -10,6 +10,7 @@ import { Messages } from './pages/messages/Messages';
 import { Message } from './pages/message/Message';
 import { MyGigs } from './pages/myGigs/MyGigs';
 import { Login } from './pages/login/Login';
+import { Register } from './pages/register/Register';
 
 import {
   createBrowserRouter,
@@ -17,15 +18,23 @@ import {
   Outlet,
 } from 'react-router-dom';
 
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+
 import './App.scss';
 
 function App() {
+  const queryClient = new QueryClient();
   const Layout = () => {
     return (
       <div className="app">
-        <Navbar />
-        <Outlet />
-        <Footer />
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </QueryClientProvider>
       </div>
     );
   };
@@ -74,6 +83,10 @@ function App() {
         {
           path: '/login',
           element: <Login />,
+        },
+        {
+          path: '/register',
+          element: <Register />,
         },
       ],
     },

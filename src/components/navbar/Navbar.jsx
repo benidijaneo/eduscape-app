@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import "./Navbar.scss";
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import newRequest from '../../utils/newRequest';
+import './Navbar.scss';
 
 export const Navbar = () => {
   const [active, setActive] = useState(false);
@@ -13,21 +14,33 @@ export const Navbar = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", isActive);
+    window.addEventListener('scroll', isActive);
 
     return () => {
-      window.removeEventListener("scroll", isActive);
+      window.removeEventListener('scroll', isActive);
     };
   }, []);
 
-  const currentUser = {
-    id: 1,
-    username: "John Doe",
-    isSeller: true,
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await newRequest.post('/auth/logout');
+      localStorage.setItem('currentUser', null);
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
-    <div className={active || pathname !== "/" ? "navbar active" : "navbar"}>
+    <div
+      className={
+        active || pathname !== '/' ? 'navbar active' : 'navbar'
+      }
+    >
       <div className="container">
         <div className="logo">
           <Link to="/" className="link">
@@ -39,13 +52,19 @@ export const Navbar = () => {
           </Link>
         </div>
         <div className="links">
-          <span>Sign in</span>
+          <Link to="/login" className="link">
+            Sign in
+          </Link>
           {!currentUser?.isSeller && <span>Become a Tutor</span>}
-          {!currentUser && <button>Join</button>}
+          {!currentUser && (
+            <Link className="link" to="/register">
+              <button>Join</button>
+            </Link>
+          )}
           {currentUser && (
             <div className="user" onClick={() => setOpen(!open)}>
               <img
-                src="https://staticg.sportskeeda.com/editor/2023/11/9e4f2-16991024448309-1920.jpg?w=840"
+                src={currentUser.img || '/img/noavatar.jpg'}
                 alt="Sukuna"
               />
               <span>{currentUser?.username}</span>
@@ -67,7 +86,7 @@ export const Navbar = () => {
                   <Link className="link" to="/messages">
                     Messages
                   </Link>
-                  <Link className="link" to="/">
+                  <Link className="link" onClick={handleLogout}>
                     Logout
                   </Link>
                 </div>
