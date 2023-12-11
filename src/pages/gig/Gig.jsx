@@ -3,7 +3,7 @@ import './Gig.scss';
 
 import { useQuery } from '@tanstack/react-query';
 import newRequest from '../../utils/newRequest';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Slider } from 'infinite-react-carousel/lib';
 import Reviews from '../../components/reviews/Reviews';
 
@@ -54,6 +54,7 @@ export const Gig = () => {
                   src={dataUser.img || '/img/noavatar.jpg'}
                   alt=""
                 />
+
                 <span>{dataUser.username}</span>
                 {Math.round(data.totalStars / data.startNumber) ===
                 Infinity ? (
@@ -61,14 +62,26 @@ export const Gig = () => {
                 ) : (
                   <div className="stars">
                     {Array(
-                      Math.round(data.totalStars / data.startNumber)
+                      isNaN(
+                        Math.round(data.totalStars / data.startNumber)
+                      )
+                        ? 0
+                        : Math.round(
+                            data.totalStars / data.startNumber
+                          )
                     )
                       .fill()
                       .map((item, i) => (
                         <img src="/img/star.png" alt="" key={i} />
                       ))}
                     <span>
-                      {Math.round(data.totalStars / data.startNumber)}
+                      {isNaN(
+                        Math.round(data.totalStars / data.startNumber)
+                      )
+                        ? ''
+                        : Math.round(
+                            data.totalStars / data.startNumber
+                          )}
                     </span>
                   </div>
                 )}
@@ -107,18 +120,30 @@ export const Gig = () => {
                     ) : (
                       <div className="stars">
                         {Array(
-                          Math.round(
-                            data.totalStars / data.startNumber
+                          isNaN(
+                            Math.round(
+                              data.totalStars / data.startNumber
+                            )
                           )
+                            ? 0
+                            : Math.round(
+                                data.totalStars / data.startNumber
+                              )
                         )
                           .fill()
                           .map((item, i) => (
                             <img src="/img/star.png" alt="" key={i} />
                           ))}
                         <span>
-                          {Math.round(
-                            data.totalStars / data.startNumber
-                          )}
+                          {isNaN(
+                            Math.round(
+                              data.totalStars / data.startNumber
+                            )
+                          )
+                            ? ''
+                            : Math.round(
+                                data.totalStars / data.startNumber
+                              )}
                         </span>
                       </div>
                     )}
@@ -183,7 +208,9 @@ export const Gig = () => {
                 </div>
               ))}
             </div>
-            <button>Continue</button>
+            <Link to={`/pay/${id}`}>
+              <button>Continue</button>
+            </Link>
           </div>
         </div>
       )}

@@ -32,8 +32,7 @@ export const GigCard = ({ item }) => {
           <div className="star">
             <img src="./img/star.png" alt="" />
             <span>
-              {Math.round(item.totalStars / item.startNumber) ===
-              Infinity
+              {isNaN(Math.round(item.totalStars / item.startNumber))
                 ? ''
                 : Math.round(item.totalStars / item.startNumber)}
             </span>
