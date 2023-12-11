@@ -1,74 +1,58 @@
-import React from "react";
-import "./Orders.scss";
+import React from 'react';
+import './Orders.scss';
+import newRequest from '../../utils/newRequest';
+import { useQuery } from '@tanstack/react-query';
 
 export const Orders = () => {
-  const currentUser = {
-    id: 1,
-    username: "John Doe",
-    isSeller: true,
-  };
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['orders'],
+    queryFn: () =>
+      newRequest.get(`/orders`).then((res) => {
+        return res.data;
+      }),
+  });
 
   return (
     <div className="orders">
-      <div className="container">
-        <div className="title">
-          <h1>Orders</h1>
+      {isLoading ? (
+        'loading'
+      ) : error ? (
+        'error'
+      ) : (
+        <div className="container">
+          <div className="title">
+            <h1>Orders</h1>
+          </div>
+          <table>
+            <tr>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Price</th>
+              <th>Contact</th>
+            </tr>
+            {data.map((order) => (
+              <tr key={order._id}>
+                <td>
+                  <img className="image" src={order.img} alt="" />
+                </td>
+                <td>{order.title}</td>
+                <td>
+                  {order.price}.<sup>99</sup>
+                </td>
+                <td>
+                  <img
+                    className="message-icon"
+                    src="/img/message.png"
+                    alt=""
+                  />
+                </td>
+              </tr>
+            ))}
+          </table>
         </div>
-        <table>
-          <tr>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Price</th>
-            <th>{currentUser?.isSeller ? "Buyer" : "Seller"}</th>
-            <th>Contact</th>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Gig #1</td>
-            <td>88</td>
-            <td>123</td>
-            <td>
-              <img className="message-icon" src="/img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Gig #1</td>
-            <td>88</td>
-            <td>123</td>
-            <td>
-              <img className="message-icon" src="/img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Gig #1</td>
-            <td>88</td>
-            <td>123</td>
-            <td>
-              <img className="message-icon" src="/img/message.png" alt="" />
-            </td>
-          </tr>
-        </table>
-      </div>
+      )}
     </div>
   );
 };
