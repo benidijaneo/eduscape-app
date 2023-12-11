@@ -14,7 +14,7 @@ export const GigCard = ({ item }) => {
   });
 
   return (
-    <Link to="/gig/123" className="link">
+    <Link to={`/gig/${item._id}`} className="link">
       <div className="gigCard">
         <img src={item.cover} alt="" />
         <div className="info">
@@ -43,7 +43,9 @@ export const GigCard = ({ item }) => {
         <div className="details">
           <img src="./img/heart.png" alt="" />
           <span>STARTING AT</span>
-          <h2>Php {item.price}</h2>
+          <h2>
+            <strong>&#8369;</strong> {item.price}
+          </h2>
         </div>
       </div>
     </Link>

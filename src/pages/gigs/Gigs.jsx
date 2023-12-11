@@ -54,7 +54,7 @@ export const Gigs = () => {
         </p>
         <div className="menu">
           <div className="left">
-            <span>Budged</span>
+            <span>Budget</span>
             <input ref={minRef} type="text" placeholder="min" />
             <input ref={maxRef} type="text" placeholder="max" />
             <button onClick={apply}>Apply</button>
