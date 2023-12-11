@@ -1,20 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './Gigs.scss';
-import { GigCard } from '../../components/gigCard/GigCard';
-import { useQuery } from '@tanstack/react-query';
-import newRequest from '../../utils/newRequest';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from "react";
+import "./Gigs.scss";
+import { GigCard } from "../../components/gigCard/GigCard";
+import { useQuery } from "@tanstack/react-query";
+import newRequest from "../../utils/newRequest";
+import { useLocation } from "react-router-dom";
 
 export const Gigs = () => {
   const [open, setOpen] = useState(false);
-  const [sort, setSort] = useState('sales');
+  const [sort, setSort] = useState("sales");
   const minRef = useRef(0);
   const maxRef = useRef(0);
 
   const { search } = useLocation();
 
   const { isLoading, error, data, refetch } = useQuery({
-    queryKey: ['gigs'],
+    queryKey: ["gigs"],
     queryFn: () =>
       newRequest
         .get(
@@ -43,7 +43,7 @@ export const Gigs = () => {
   return (
     <div className="gigs">
       <div className="container">
-        <span className="breadcrumbs">
+        {/* <span className="breadcrumbs">
           EduScape {'>'} GRAPHICS & DESIGN {'>'}
         </span>
         <h1>AI Artists</h1>
@@ -51,7 +51,7 @@ export const Gigs = () => {
           Explore the boundaries of art and technology with{' '}
           {`EduScape's`}
           AI artists
-        </p>
+        </p> */}
         <div className="menu">
           <div className="left">
             <span>Budget</span>
@@ -62,23 +62,15 @@ export const Gigs = () => {
           <div className="right">
             <span className="sortBy">Sort By</span>
             <span className="sortType">
-              {sort === 'sales' ? 'Best Selling' : 'Newest'}
+              {sort === "sales" ? "Best Selling" : "Newest"}
             </span>
-            <img
-              src="./img/down.png"
-              alt=""
-              onClick={() => setOpen(!open)}
-            />
+            <img src="./img/down.png" alt="" onClick={() => setOpen(!open)} />
             {open && (
               <div className="rightMenu">
-                {sort === 'sales' ? (
-                  <span onClick={() => reSort('createdAt')}>
-                    Newest
-                  </span>
+                {sort === "sales" ? (
+                  <span onClick={() => reSort("createdAt")}>Newest</span>
                 ) : (
-                  <span onClick={() => reSort('sales')}>
-                    Best Selling
-                  </span>
+                  <span onClick={() => reSort("sales")}>Best Selling</span>
                 )}
               </div>
             )}
@@ -86,9 +78,9 @@ export const Gigs = () => {
         </div>
         <div className="cards">
           {isLoading
-            ? 'loading'
+            ? "loading"
             : error
-            ? 'Something went wrong!'
+            ? "Something went wrong!"
             : data.map((gig) => <GigCard key={gig._id} item={gig} />)}
         </div>
       </div>

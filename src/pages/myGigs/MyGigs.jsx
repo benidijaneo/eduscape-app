@@ -1,13 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './MyGigs.scss';
-import getCurrentUser from '../../utils/getCurrentUser';
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
-import newRequest from '../../utils/newRequest';
+import React from "react";
+import { Link } from "react-router-dom";
+import "./MyGigs.scss";
+import getCurrentUser from "../../utils/getCurrentUser";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import newRequest from "../../utils/newRequest";
 
 export const MyGigs = () => {
   const currentUser = getCurrentUser();
@@ -15,13 +11,11 @@ export const MyGigs = () => {
   const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ['myGigs'],
+    queryKey: ["myGigs"],
     queryFn: () =>
-      newRequest
-        .get(`/gigs?userId=${currentUser._id}`)
-        .then((res) => {
-          return res.data;
-        }),
+      newRequest.get(`/gigs?userId=${currentUser._id}`).then((res) => {
+        return res.data;
+      }),
   });
 
   const mutation = useMutation({
@@ -29,7 +23,7 @@ export const MyGigs = () => {
       return newRequest.delete(`/gigs/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['myGigs']);
+      queryClient.invalidateQueries(["myGigs"]);
     },
   });
 
@@ -40,13 +34,13 @@ export const MyGigs = () => {
   return (
     <div className="myGigs">
       {isLoading ? (
-        'loading'
+        "loading"
       ) : error ? (
-        'error'
+        "error"
       ) : (
         <div className="container">
           <div className="title">
-            <h1>Gigs</h1>
+            <h1>Services</h1>
             {currentUser.isSeller && (
               <Link to="/add">
                 <button>Add New Gig</button>

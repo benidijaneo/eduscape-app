@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import newRequest from '../../utils/newRequest';
-import './Navbar.scss';
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import newRequest from "../../utils/newRequest";
+import "./Navbar.scss";
 
 export const Navbar = () => {
   const [active, setActive] = useState(false);
@@ -14,33 +14,29 @@ export const Navbar = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', isActive);
+    window.addEventListener("scroll", isActive);
 
     return () => {
-      window.removeEventListener('scroll', isActive);
+      window.removeEventListener("scroll", isActive);
     };
   }, []);
 
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      await newRequest.post('/auth/logout');
-      localStorage.setItem('currentUser', null);
-      navigate('/');
+      await newRequest.post("/auth/logout");
+      localStorage.setItem("currentUser", null);
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <div
-      className={
-        active || pathname !== '/' ? 'navbar active' : 'navbar'
-      }
-    >
+    <div className={active || pathname !== "/" ? "navbar active" : "navbar"}>
       <div className="container">
         <div className="logo">
           <Link to="/" className="link">
@@ -55,7 +51,6 @@ export const Navbar = () => {
           <Link to="/login" className="link">
             Sign in
           </Link>
-          {!currentUser?.isSeller && <span>Become a Tutor</span>}
           {!currentUser && (
             <Link className="link" to="/register">
               <button>Join</button>
@@ -63,10 +58,7 @@ export const Navbar = () => {
           )}
           {currentUser && (
             <div className="user" onClick={() => setOpen(!open)}>
-              <img
-                src={currentUser.img || '/img/noavatar.jpg'}
-                alt="Sukuna"
-              />
+              <img src={currentUser.img || "/img/noavatar.jpg"} alt="Sukuna" />
               <span>{currentUser?.username}</span>
               {open && (
                 <div className="options">
