@@ -43,7 +43,7 @@ export const MyGigs = () => {
             <h1>Services</h1>
             {currentUser.isSeller && (
               <Link to="/add">
-                <button>Add New Gig</button>
+                <button>Add New Service</button>
               </Link>
             )}
           </div>

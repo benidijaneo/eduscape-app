@@ -1,10 +1,10 @@
-import React, { useReducer, useState } from 'react';
-import './Add.scss';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import upload from '../../utils/upload';
-import newRequest from '../../utils/newRequest';
-import { useNavigate } from 'react-router-dom';
-import { gigReducer, INITIAL_STATE } from '../../reducers/gigReducer';
+import React, { useReducer, useState } from "react";
+import "./Add.scss";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import upload from "../../utils/upload";
+import newRequest from "../../utils/newRequest";
+import { useNavigate } from "react-router-dom";
+import { gigReducer, INITIAL_STATE } from "../../reducers/gigReducer";
 
 export const Add = () => {
   const [singleFile, setSingleFile] = useState(undefined);
@@ -15,22 +15,20 @@ export const Add = () => {
 
   const handleChange = (e) => {
     dispatch({
-      type: 'CHANGE_INPUT',
+      type: "CHANGE_INPUT",
       payload: {
         name: e.target.name,
-        value: isNaN(+e.target.value)
-          ? e.target.value
-          : +e.target.value,
+        value: isNaN(+e.target.value) ? e.target.value : +e.target.value,
       },
     });
   };
   const handleFeature = (e) => {
     e.preventDefault();
     dispatch({
-      type: 'ADD_FEATURE',
+      type: "ADD_FEATURE",
       payload: e.target[0].value,
     });
-    e.target[0].value = '';
+    e.target[0].value = "";
   };
 
   const handleUpload = async () => {
@@ -45,7 +43,7 @@ export const Add = () => {
         })
       );
       setUploading(false);
-      dispatch({ type: 'ADD_IMAGES', payload: { cover, images } });
+      dispatch({ type: "ADD_IMAGES", payload: { cover, images } });
     } catch (err) {
       console.log(err);
     }
@@ -57,17 +55,17 @@ export const Add = () => {
 
   const mutation = useMutation({
     mutationFn: (gig) => {
-      return newRequest.post('/gigs', gig);
+      return newRequest.post("/gigs", gig);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['myGigs']);
+      queryClient.invalidateQueries(["myGigs"]);
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     mutation.mutate(state);
-    navigate('/mygigs');
+    navigate("/mygigs");
   };
 
   console.log(state);
@@ -75,14 +73,14 @@ export const Add = () => {
   return (
     <div className="add">
       <div className="container">
-        <h1>Add New Gig</h1>
+        <h1>Add New Service</h1>
         <div className="sections">
           <div className="info">
             <label htmlFor="">Title</label>
             <input
               type="text"
               name="title"
-              placeholder="e.g. I will do something I'm really good at"
+              placeholder="e.g. I'm going to do something I really excel at."
               onChange={handleChange}
             />
             <label htmlFor="">Category</label>
@@ -108,14 +106,14 @@ export const Add = () => {
                 />
               </div>
               <button onClick={handleUpload}>
-                {uploading ? 'uploading' : 'Upload'}
+                {uploading ? "Uploading" : "Upload"}
               </button>
             </div>
             <label htmlFor="">Description</label>
             <textarea
               name="desc"
               id=""
-              placeholder="Brief descriptions to introduce your service to customers"
+              placeholder="Brief descriptions to introduce your service to students"
               cols="0"
               rows="16"
               onChange={handleChange}
@@ -127,7 +125,7 @@ export const Add = () => {
             <input
               type="text"
               name="shortTitle"
-              placeholder="e.g. One-page web design"
+              placeholder="e.g. Teaching Mathematics"
               onChange={handleChange}
             />
             <label htmlFor="">Short Description</label>
@@ -140,22 +138,18 @@ export const Add = () => {
               rows="10"
             ></textarea>
             <label htmlFor="">Availability (e.g. 3 days)</label>
-            <input
-              type="number"
-              name="availability"
-              onChange={handleChange}
-            />
+            <input type="number" name="availability" onChange={handleChange} />
             <label htmlFor="">Add Features</label>
             <form action="" className="add" onSubmit={handleFeature}>
               <input type="text" placeholder="e.g. page design" />
-              <button type="submit">add</button>
+              <button type="submit">Add</button>
             </form>
             <div className="addedFeatures">
               {state?.features?.map((f) => (
                 <div className="item" key={f}>
                   <button
                     onClick={() =>
-                      dispatch({ type: 'REMOVE_FEATURE', payload: f })
+                      dispatch({ type: "REMOVE_FEATURE", payload: f })
                     }
                   >
                     {f}
@@ -165,11 +159,7 @@ export const Add = () => {
               ))}
             </div>
             <label htmlFor="">Price</label>
-            <input
-              type="number"
-              onChange={handleChange}
-              name="price"
-            />
+            <input type="number" onChange={handleChange} name="price" />
           </div>
         </div>
       </div>
