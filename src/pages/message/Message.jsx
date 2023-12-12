@@ -54,7 +54,7 @@ export const Message = () => {
                 key={m._id}
               >
                 <img
-                  src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                  src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg"
                   alt=""
                 />
                 <p>{m.desc}</p>
