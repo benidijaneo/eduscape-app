@@ -1,0 +1,26 @@
+.checkout-form {
+  .container {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      width: 600px;
+      height: 600px;
+
+      button {
+        background-color: #d23921;
+        width: 100px;
+        padding: 20px;
+        color: #fff;
+        font-weight: 500;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+    }
+  }
+}

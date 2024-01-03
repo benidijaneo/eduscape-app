@@ -46,7 +46,7 @@ export const Footer = () => {
             <h2>EduScape</h2>
             <span>© Copyright 2023</span>
           </div>
-          <div className="right">
+          {/* <div className="right">
             <div className="social">
               <img src="img/twitter.png" alt="" />
               <img src="img/facebook.png" alt="" />
@@ -54,7 +54,7 @@ export const Footer = () => {
               <img src="img/pinterest.png" alt="" />
               <img src="img/instagram.png" alt="" />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

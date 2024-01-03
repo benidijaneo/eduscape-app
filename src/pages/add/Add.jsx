@@ -141,7 +141,7 @@ export const Add = () => {
             <input type="number" name="availability" onChange={handleChange} />
             <label htmlFor="">Add Features</label>
             <form action="" className="add" onSubmit={handleFeature}>
-              <input type="text" placeholder="e.g. page design" />
+              <input type="text" placeholder="" />
               <button type="submit">Add</button>
             </form>
             <div className="addedFeatures">
