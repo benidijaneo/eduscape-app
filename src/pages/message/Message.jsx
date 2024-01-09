@@ -47,8 +47,16 @@ export const Message = () => {
       .then((res) => console.log(res));
   }
   const conData = JSON.parse(localStorage.getItem('conversations'));
-  const buyerImg = conData[0].buyerImg;
+  const buyerImg =
+    currentUser.isSeller == false
+      ? conData[0].sellerImg
+      : conData[0].buyerImg;
   // getLamar(data.conversationId);
+  console.log(buyerImg);
+
+  console.log(data[2].userId);
+  console.log(`CURRENT USER: ${currentUser._id}`);
+  console.log(data[2].userId == currentUser._id);
   return (
     <div className="message">
       <div className="container">
