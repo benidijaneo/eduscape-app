@@ -35,7 +35,7 @@ export const Add = () => {
     setUploading(true);
     try {
       const cover = await upload(singleFile);
-
+      console.log(cover);
       const images = await Promise.all(
         [...files].map(async (file) => {
           const url = await upload(file);

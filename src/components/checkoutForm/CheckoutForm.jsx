@@ -62,7 +62,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "https://eduscape.netlify.app/orders",
+        return_url: "https://eduscape.netlify.app/success",
       },
     });
 
