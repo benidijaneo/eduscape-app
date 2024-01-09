@@ -1,21 +1,17 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
-import newRequest from '../../utils/newRequest';
-import './Message.scss';
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import newRequest from "../../utils/newRequest";
+import "./Message.scss";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const Message = () => {
   const { id } = useParams();
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ['messages'],
+    queryKey: ["messages"],
     queryFn: () =>
       newRequest.get(`/messages/${id}`).then((res) => {
         return res.data;
@@ -27,7 +23,7 @@ export const Message = () => {
       return newRequest.post(`/messages`, message);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['messages']);
+      queryClient.invalidateQueries(["messages"]);
     },
   });
 
@@ -37,18 +33,14 @@ export const Message = () => {
       conversationId: id,
       desc: e.target[0].value,
     });
-    e.target[0].value = '';
+    e.target[0].value = "";
   };
 
-  // console.log(data[0].conversationId);
-  async function getLamar(id) {
-    await newRequest
-      .get(`/single/${id}`)
-      .then((res) => console.log(res));
-  }
-  const conData = JSON.parse(localStorage.getItem('conversations'));
-  const buyerImg = conData[0].buyerImg;
-  // getLamar(data.conversationId);
+  const conData = JSON.parse(localStorage.getItem("conversations"));
+  // const buyerImg = conData[0].buyerImg;
+  const sellerImg = conData[0].sellerImg;
+  console.log(conData);
+
   return (
     <div className="message">
       <div className="container">
@@ -56,29 +48,46 @@ export const Message = () => {
           <Link to="/messages">Messages</Link>
         </span>
         {isLoading ? (
-          'loading'
+          "loading"
         ) : error ? (
-          'error'
+          "error"
         ) : (
           <div className="messages">
-            {data.map((m) => (
-              <div
-                className={
-                  m.userId === currentUser._id ? 'owner item' : 'item'
-                }
-                key={m._id}
-              >
-                <img
-                  src={
-                    m.userId === currentUser._id
-                      ? currentUser.img
-                      : buyerImg
+            {data.map((m) => {
+              const conversationIndex = conData.findIndex(
+                (conversation) => conversation.id === m.conversationId
+              );
+              const conversation = conData[conversationIndex]; // Access the conversation data for each message
+              return (
+                <div
+                  className={
+                    m.userId === currentUser._id ? "owner item" : "item"
                   }
-                  alt="User Profile"
-                />
-                <p>{m.desc}</p>
-              </div>
-            ))}
+                  key={m._id}
+                >
+                  {currentUser.isSeller ? (
+                    <img
+                      src={
+                        m.userId === currentUser._id
+                          ? currentUser.img
+                          : conversation.buyerImg
+                      }
+                      alt="User Profile"
+                    />
+                  ) : (
+                    <img
+                      src={
+                        m.userId === currentUser._id
+                          ? currentUser.img
+                          : sellerImg
+                      }
+                      alt="User Profile"
+                    />
+                  )}
+                  <p>{m.desc}</p>
+                </div>
+              );
+            })}
           </div>
         )}
         <hr />
