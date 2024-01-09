@@ -36,11 +36,13 @@ export const Message = () => {
     e.target[0].value = "";
   };
 
+  // console.log(data[0].conversationId);
+  // async function getLamar(id) {
+  //   await newRequest.get(`/single/${id}`).then((res) => console.log(res));
+  // }
   const conData = JSON.parse(localStorage.getItem("conversations"));
-  // const buyerImg = conData[0].buyerImg;
   const sellerImg = conData[0].sellerImg;
-  console.log(conData);
-
+  // getLamar(data.conversationId);
   return (
     <div className="message">
       <div className="container">
