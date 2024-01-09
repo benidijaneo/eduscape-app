@@ -1,17 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./Messages.scss";
-import newRequest from "../../utils/newRequest";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import moment from "moment";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Messages.scss';
+import newRequest from '../../utils/newRequest';
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import moment from 'moment';
 
 export const Messages = () => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
   const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["conversations"],
+    queryKey: ['conversations'],
     queryFn: () =>
       newRequest.get(`/conversations`).then((res) => {
         return res.data;
@@ -23,7 +27,7 @@ export const Messages = () => {
       return newRequest.put(`/conversations/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["conversations"]);
+      queryClient.invalidateQueries(['conversations']);
     },
   });
 
@@ -31,14 +35,15 @@ export const Messages = () => {
     mutation.mutate(id);
   };
 
+  localStorage.setItem('conversations', JSON.stringify(data));
   console.log(data);
 
   return (
     <div className="messages">
       {isLoading ? (
-        "loading"
+        'loading'
       ) : error ? (
-        "error"
+        'error'
       ) : (
         <div className="container">
           <div className="title">
@@ -46,7 +51,7 @@ export const Messages = () => {
           </div>
           <table>
             <tr>
-              <th>{currentUser.isSeller ? "Buyer" : "Seller"}</th>
+              <th>{currentUser.isSeller ? 'Buyer' : 'Seller'}</th>
               <th>Last Message</th>
               <th>Date</th>
               <th>Action</th>
@@ -56,11 +61,13 @@ export const Messages = () => {
                 className={
                   ((currentUser.isSeller && !c.readBySeller) ||
                     (!currentUser.isSeller && !c.readByBuyer)) &&
-                  "active"
+                  'active'
                 }
                 key={c.id}
               >
-                <td>{currentUser.isSeller ? c.buyerName : c.sellerName}</td>
+                <td>
+                  {currentUser.isSeller ? c.buyerName : c.sellerName}
+                </td>
                 <td>
                   <Link to={`/message/${c.id}`} className="link">
                     {c?.lastMessage?.substring(0, 100)}...
