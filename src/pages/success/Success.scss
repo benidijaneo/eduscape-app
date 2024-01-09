@@ -1,0 +1,13 @@
+.success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  height: 650px;
+  gap: 8px;
+
+  span {
+    font-size: 60px;
+  }
+}

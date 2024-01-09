@@ -43,15 +43,6 @@ export const Gigs = () => {
   return (
     <div className="gigs">
       <div className="container">
-        {/* <span className="breadcrumbs">
-          EduScape {'>'} GRAPHICS & DESIGN {'>'}
-        </span>
-        <h1>AI Artists</h1>
-        <p>
-          Explore the boundaries of art and technology with{' '}
-          {`EduScape's`}
-          AI artists
-        </p> */}
         <div className="menu">
           <div className="left">
             <span>Budget</span>

@@ -62,7 +62,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "https://eduscape.netlify.app/success",
+        return_url: "http://localhost:5173/success",
       },
     });
 
@@ -106,7 +106,11 @@ const CheckoutForm = () => {
             </span>
           </button>
           {/* Show any error or success messages */}
-          {message && <div id="payment-message">{message}</div>}
+          {message && (
+            <div id="payment-message">
+              <span>{message}</span>
+            </div>
+          )}
         </form>
       </div>
     </div>
