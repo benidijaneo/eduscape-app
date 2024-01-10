@@ -62,7 +62,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "https://www.eduscape.site:5173/success",
+        return_url: "https://www.eduscape.site/success",
       },
     });
 
