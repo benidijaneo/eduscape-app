@@ -36,6 +36,11 @@ export const Message = () => {
     e.target[0].value = "";
   };
 
+  const ssl = (data) => {
+    const ht = data.split(":")[0] + "s";
+    return ht + ":" + data.split(":")[1];
+  };
+
   // console.log(data[0].conversationId);
   // async function getLamar(id) {
   //   await newRequest.get(`/single/${id}`).then((res) => console.log(res));
@@ -71,8 +76,8 @@ export const Message = () => {
                     <img
                       src={
                         m.userId === currentUser._id
-                          ? currentUser.img
-                          : conversation.buyerImg
+                          ? ssl(currentUser.img)
+                          : ssl(conversation.buyerImg)
                       }
                       alt="User Profile"
                     />
@@ -80,8 +85,8 @@ export const Message = () => {
                     <img
                       src={
                         m.userId === currentUser._id
-                          ? currentUser.img
-                          : sellerImg
+                          ? ssl(currentUser.img)
+                          : ssl(sellerImg)
                       }
                       alt="User Profile"
                     />
