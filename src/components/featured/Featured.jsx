@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Featured.scss";
 
 export const Featured = () => {
@@ -11,7 +12,9 @@ export const Featured = () => {
             Embark on a Learning Odyssey with <i>EduScape</i>.
           </p>
 
-          <button>Get started</button>
+          <Link to={"/gigs?cat"}>
+            <button>Get started</button>
+          </Link>
         </div>
       </div>
     </div>
