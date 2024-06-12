@@ -32,6 +32,34 @@ export const Gig = () => {
       }),
     enabled: !!userId,
   });
+  console.log(dataUser);
+
+  const formatDate = (date) => {
+    const dateArr = date.split(":")[0].split("-");
+    const year = dateArr[0];
+    const month = dateArr[1]
+      .split("")
+      .filter((n, i) => n != 0 && i != 0)
+      .join("");
+
+    const strMonths = {
+      1: "January",
+      2: "February",
+      3: "March",
+      4: "April",
+      5: "May",
+      6: "June",
+      7: "July",
+      8: "August",
+      9: "September",
+      10: "October",
+      11: "November",
+      12: "December",
+    };
+
+    return `${strMonths[month]} ${year}`;
+  };
+
   return (
     <div className="gig">
       {isLoading ? (
@@ -55,7 +83,7 @@ export const Gig = () => {
                   alt=""
                 />
 
-                <span>{dataUser.username}</span>
+                <span>{`${dataUser.firstName} ${dataUser.lastName}`}</span>
                 {Math.round(data.totalStars / data.startNumber) === Infinity ? (
                   ""
                 ) : (
@@ -96,7 +124,7 @@ export const Gig = () => {
                 <div className="user">
                   <img src={dataUser.img || "/img/noavatar.jpg"} alt="" />
                   <div className="info">
-                    <span>{dataUser.username}</span>
+                    <span>{`${dataUser.firstName} ${dataUser.lastName}`}</span>
                     {Math.round(data.totalStars / data.startNumber) ===
                     Infinity ? (
                       ""
@@ -130,7 +158,9 @@ export const Gig = () => {
                     </div>
                     <div className="item">
                       <span className="title">Member since</span>
-                      <span className="desc">Dec 2023</span>
+                      <span className="desc">
+                        {formatDate(dataUser.createdAt)}
+                      </span>
                     </div>
                     {/* <div className="item">
                       <span className="title">
@@ -142,12 +172,13 @@ export const Gig = () => {
                       <span className="title">Last delivery</span>
                       <span className="desc">1 day</span>
                     </div> */}
-                    <div className="item">
+                    {/* <div className="item">
                       <span className="title">Languages</span>
                       <span className="desc">English</span>
-                    </div>
+                    </div> */}
                   </div>
                   <hr />
+                  <span>Bio</span>
                   <p>{dataUser.desc}</p>
                 </div>
               </div>

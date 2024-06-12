@@ -1,7 +1,7 @@
-import React from 'react';
-import './Review.scss';
-import { useQuery } from '@tanstack/react-query';
-import newRequest from '../../utils/newRequest';
+import React from "react";
+import "./Review.scss";
+import { useQuery } from "@tanstack/react-query";
+import newRequest from "../../utils/newRequest";
 
 const Review = ({ review }) => {
   const { isLoading, error, data } = useQuery({
@@ -14,18 +14,14 @@ const Review = ({ review }) => {
   return (
     <div className="review">
       {isLoading ? (
-        'loading'
+        "loading"
       ) : error ? (
-        'Something went wrong!'
+        "Something went wrong!"
       ) : (
         <div className="user">
-          <img
-            className="pp"
-            src={data.img || '/img/noavatar.jpg'}
-            alt=""
-          />
+          <img className="pp" src={data.img || "/img/noavatar.jpg"} alt="" />
           <div className="info">
-            <span>{data.username}</span>
+            <span>{`${data.firstName} ${data.lastName}`}</span>
             <div className="country">
               <span>{data.province}</span>
             </div>
@@ -41,13 +37,13 @@ const Review = ({ review }) => {
         <span>{review.star}</span>
       </div>
       <p>{review.desc}</p>
-      <div className="helpful">
+      {/* <div className="helpful">
         <span>Helpful?</span>
         <img src="/img/like.png" alt="" />
         <span>Yes</span>
         <img src="/img/dislike.png" alt="" />
         <span>No</span>
-      </div>
+    </div> */}
     </div>
   );
 };

@@ -10,7 +10,7 @@ export const Footer = () => {
             <h2>Subjects</h2>
             <span>English</span>
             <span>Mathematics</span>
-            <span>Philosophy</span>
+            <span>Programming</span>
             <span>Science</span>
             <span>Social Studies</span>
           </div>

@@ -61,7 +61,7 @@ export const Navbar = () => {
           {currentUser && (
             <div className="user" onClick={() => setOpen(!open)}>
               <img src={currentUser.img || "/img/noavatar.jpg"} alt="Sukuna" />
-              <span>{currentUser?.username}</span>
+              <span>{`${currentUser?.firstName} ${currentUser?.lastName}`}</span>
               {open && (
                 <div className="options">
                   {currentUser?.isSeller && (

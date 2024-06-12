@@ -22,10 +22,10 @@ export const cards = [
   },
   {
     id: 4,
-    title: "Explore the Depths of Thought",
-    desc: "Philosophy",
-    endpoint: "philosophy",
-    img: "https://images.pexels.com/photos/18245117/pexels-photo-18245117/free-photo-of-still-life-with-a-cup-of-tea-and-an-antique-philosophy-book.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    title: "Code your future",
+    desc: "Programming",
+    endpoint: "programming",
+    img: "https://images.pexels.com/photos/574077/pexels-photo-574077.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     id: 5,

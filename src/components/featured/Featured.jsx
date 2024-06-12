@@ -16,6 +16,9 @@ export const Featured = () => {
             <button>Get started</button>
           </Link>
         </div>
+        <div className="right">
+          <img src="./img/hero-img.svg" alt="" />
+        </div>
       </div>
     </div>
   );
