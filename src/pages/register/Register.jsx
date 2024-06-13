@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import upload from "../../utils/upload";
-import "./Register.scss";
-import newRequest from "../../utils/newRequest";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import upload from '../../utils/upload';
+import './Register.scss';
+import newRequest from '../../utils/newRequest';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const Register = () => {
   const [file, setFile] = useState(null);
+  const [resumeFile, setResumeFile] = useState(null);
+  const [validIDFile, setValidIDFile] = useState(null);
   const [user, setUser] = useState({
-    username: "",
-    email: "",
-    password: "",
-    img: "",
-    country: "",
+    username: '',
+    email: '',
+    password: '',
+    img: '',
+    country: '',
     isSeller: false,
-    desc: "",
+    desc: '',
   });
 
   const navigate = useNavigate();
@@ -29,16 +32,40 @@ export const Register = () => {
       return { ...prev, isSeller: e.target.checked };
     });
   };
+
+  const uploadPDF = async (file) => {
+    const data = new FormData();
+    data.append('file', file);
+    data.append('upload_preset', 'eduScape');
+    data.append('resource_type', 'raw');
+
+    try {
+      const res = await axios.post(
+        'https://api.cloudinary.com/v1_1/eduscape/raw/upload',
+        data
+      );
+
+      const { url } = res.data;
+      return url;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const url = await upload(file);
+    const urlResume = await uploadPDF(resumeFile);
+    const urlValidID = await upload(validIDFile);
     try {
-      await newRequest.post("/auth/register", {
+      await newRequest.post('/auth/register', {
         ...user,
         img: url,
+        resume: urlResume,
+        validID: urlValidID,
       });
-      navigate("/");
+      navigate('/');
     } catch (err) {
       console.log(err);
     }
@@ -70,9 +97,16 @@ export const Register = () => {
             onChange={handleChange}
           />
           <label htmlFor="">Password</label>
-          <input name="password" type="password" onChange={handleChange} />
+          <input
+            name="password"
+            type="password"
+            onChange={handleChange}
+          />
           <label htmlFor="">Profile Picture</label>
-          <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
           <label htmlFor="">Province</label>
           <input
             name="province"
@@ -99,9 +133,15 @@ export const Register = () => {
             onChange={handleChange}
           />
           <label htmlFor="">Resume</label>
-          <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+          <input
+            type="file"
+            onChange={(e) => setResumeFile(e.target.files[0])}
+          />
           <label htmlFor="">Valid ID</label>
-          <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+          <input
+            type="file"
+            onChange={(e) => setValidIDFile(e.target.files[0])}
+          />
 
           <label htmlFor="">Description</label>
           <textarea
