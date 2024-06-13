@@ -89,6 +89,8 @@ export const Register = () => {
             placeholder=""
             onChange={handleChange}
           />
+          <label htmlFor="">Birthdate</label>
+          <input name="birthdate" type="date" onChange={handleChange} />
           <label htmlFor="">Username</label>
           <input
             name="username"
@@ -132,6 +134,27 @@ export const Register = () => {
             placeholder="09606473921"
             onChange={handleChange}
           />
+
+          <label htmlFor="">Social Links</label>
+          <input
+            name="facebook"
+            type="text"
+            placeholder="Facebook"
+            onChange={handleChange}
+          />
+          <input
+            name="gmail"
+            type="text"
+            placeholder="Gmail"
+            onChange={handleChange}
+          />
+          <input
+            name="linkedin"
+            type="text"
+            placeholder="LinkedIn"
+            onChange={handleChange}
+          />
+
           <label htmlFor="">Resume</label>
           <input
             type="file"
