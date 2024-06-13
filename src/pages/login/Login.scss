@@ -1,44 +1,56 @@
-.login {
+.login-container {
   display: flex;
+  gap: 50px;
   align-items: center;
   justify-content: center;
 
-  form {
-    width: 360px;
-    padding: 100px 0px;
+  .left-img {
+    height: 550px;
+    width: 550px;
+  }
+
+  .login {
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    justify-content: center;
 
-    h1 {
-      color: gray;
-      margin-bottom: 20px;
-    }
+    form {
+      width: 360px;
+      padding: 100px 0px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
 
-    label {
-      color: gray;
-      font-size: 18px;
-    }
+      h1 {
+        color: gray;
+        margin-bottom: 20px;
+      }
 
-    input,
-    textarea {
-      padding: 20px;
-      border: 1px solid rgb(216, 214, 214);
-    }
+      label {
+        color: gray;
+        font-size: 18px;
+      }
 
-    button {
-      border: none;
-      padding: 20px;
-      color: white;
-      font-weight: 500;
-      font-size: 18px;
-      background-color: #da3a27;
-      cursor: pointer;
-    }
+      input,
+      textarea {
+        padding: 20px;
+        border: 1px solid rgb(216, 214, 214);
+      }
 
-    span {
-      color: red;
-      font-size: 12px;
+      button {
+        border: none;
+        padding: 20px;
+        color: white;
+        font-weight: 500;
+        font-size: 18px;
+        background-color: #da3a27;
+        cursor: pointer;
+      }
+
+      span {
+        color: red;
+        font-size: 12px;
+      }
     }
   }
 }

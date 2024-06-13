@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Gig.scss";
 
 import { useQuery } from "@tanstack/react-query";
@@ -6,6 +6,7 @@ import newRequest from "../../utils/newRequest";
 import { Link, useParams } from "react-router-dom";
 import { Slider } from "infinite-react-carousel/lib";
 import Reviews from "../../components/reviews/Reviews";
+import Dropdown from "../../components/dropDown/Dropdown";
 
 export const Gig = () => {
   const { id } = useParams();
@@ -17,6 +18,8 @@ export const Gig = () => {
         return res.data;
       }),
   });
+
+  const [open, setOpen] = useState(false);
 
   const userId = data?.userId;
 
@@ -146,7 +149,15 @@ export const Gig = () => {
                         </span>
                       </div>
                     )}
-                    {/* <button>Contact Me</button> */}
+                    <div className="button-container">
+                      <div className="contact">
+                        <button onClick={() => setOpen(!open)}>
+                          Contact Me
+                        </button>
+                      </div>
+                      <button>Download CV</button>
+                    </div>
+                    {open && <Dropdown />}
                   </div>
                 </div>
 
@@ -162,20 +173,6 @@ export const Gig = () => {
                         {formatDate(dataUser.createdAt)}
                       </span>
                     </div>
-                    {/* <div className="item">
-                      <span className="title">
-                        Avg. response time
-                      </span>
-                      <span className="desc">4 hours</span>
-                    </div>
-                    <div className="item">
-                      <span className="title">Last delivery</span>
-                      <span className="desc">1 day</span>
-                    </div> */}
-                    {/* <div className="item">
-                      <span className="title">Languages</span>
-                      <span className="desc">English</span>
-                    </div> */}
                   </div>
                   <hr />
                   <span>Bio</span>
@@ -199,6 +196,10 @@ export const Gig = () => {
                 <img src="/img/clock.png" alt="" />
                 <span>Availability: {data.availability}/week</span>
               </div>
+              <div className="item">
+                <img src="/img/calendar.png" alt="" />
+                <span>Duration: {data.availability}/week</span>
+              </div>
             </div>
             <div className="features">
               {data.features.map((feature) => (
@@ -209,7 +210,7 @@ export const Gig = () => {
               ))}
             </div>
             <Link to={`/pay/${id}`}>
-              <button>Continue</button>
+              <button>Message</button>
             </Link>
           </div>
         </div>

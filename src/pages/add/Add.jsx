@@ -88,7 +88,7 @@ export const Add = () => {
               <option value="mathematics">Mathematics</option>
               <option value="english">English</option>
               <option value="science">Science</option>
-              <option value="philosophy">Philosophy</option>
+              <option value="programming">Programming</option>
               <option value="social-studies">Social Studies</option>
             </select>
             <div className="images">
@@ -137,8 +137,14 @@ export const Add = () => {
               cols="30"
               rows="10"
             ></textarea>
-            <label htmlFor="">Availability (e.g. 3 days)</label>
+            <label htmlFor="">Hour per session (e.g 6 hours)</label>
             <input type="number" name="availability" onChange={handleChange} />
+            <label htmlFor="">Days to complete the topic</label>
+            <input
+              type="number"
+              name="days-to-complete"
+              onChange={handleChange}
+            />
             <label htmlFor="">Add Features</label>
             <form action="" className="add" onSubmit={handleFeature}>
               <input type="text" placeholder="" />

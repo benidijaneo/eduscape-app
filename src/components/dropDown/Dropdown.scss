@@ -1,0 +1,14 @@
+.contact-list {
+  position: absolute;
+  background-color: white;
+  padding: 0px 2px;
+  border-radius: 5px;
+  display: flex;
+  border: 1px solid lightgray;
+  bottom: -35px;
+
+  .contact-img {
+    height: 30px !important;
+    width: 30px !important;
+  }
+}

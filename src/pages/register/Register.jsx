@@ -98,6 +98,11 @@ export const Register = () => {
             placeholder="09606473921"
             onChange={handleChange}
           />
+          <label htmlFor="">Resume</label>
+          <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+          <label htmlFor="">Valid ID</label>
+          <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+
           <label htmlFor="">Description</label>
           <textarea
             placeholder="A short description of yourself"

@@ -80,6 +80,7 @@
           display: flex;
           align-items: center;
           gap: 20px;
+          position: relative;
 
           img {
             width: 100px;
@@ -107,6 +108,12 @@
                 color: #ffc108;
               }
             }
+
+            .button-container {
+              display: flex;
+              gap: 10px;
+            }
+
             button {
               background-color: #fff;
               border-radius: 5px;

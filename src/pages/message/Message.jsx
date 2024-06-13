@@ -53,6 +53,7 @@ export const Message = () => {
       <div className="container">
         <span className="breadcrumbs">
           <Link to="/messages">Messages</Link>
+          <Link to="#">Google Meet</Link>
         </span>
         {isLoading ? (
           "loading"
@@ -99,7 +100,7 @@ export const Message = () => {
         )}
         <hr />
         <form className="write" onSubmit={handleSubmit}>
-          <textarea type="text" placeholder="write a message" />
+          <textarea type="text" placeholder="Write a message" />
           <button type="submit">Send</button>
         </form>
       </div>
