@@ -1,10 +1,10 @@
-import React, { useReducer, useState } from "react";
-import "./Add.scss";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import upload from "../../utils/upload";
-import newRequest from "../../utils/newRequest";
-import { useNavigate } from "react-router-dom";
-import { gigReducer, INITIAL_STATE } from "../../reducers/gigReducer";
+import React, { useReducer, useState } from 'react';
+import './Add.scss';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import upload from '../../utils/upload';
+import newRequest from '../../utils/newRequest';
+import { useNavigate } from 'react-router-dom';
+import { gigReducer, INITIAL_STATE } from '../../reducers/gigReducer';
 
 export const Add = () => {
   const [singleFile, setSingleFile] = useState(undefined);
@@ -15,20 +15,22 @@ export const Add = () => {
 
   const handleChange = (e) => {
     dispatch({
-      type: "CHANGE_INPUT",
+      type: 'CHANGE_INPUT',
       payload: {
         name: e.target.name,
-        value: isNaN(+e.target.value) ? e.target.value : +e.target.value,
+        value: isNaN(+e.target.value)
+          ? e.target.value
+          : +e.target.value,
       },
     });
   };
   const handleFeature = (e) => {
     e.preventDefault();
     dispatch({
-      type: "ADD_FEATURE",
+      type: 'ADD_FEATURE',
       payload: e.target[0].value,
     });
-    e.target[0].value = "";
+    e.target[0].value = '';
   };
 
   const handleUpload = async () => {
@@ -43,7 +45,7 @@ export const Add = () => {
         })
       );
       setUploading(false);
-      dispatch({ type: "ADD_IMAGES", payload: { cover, images } });
+      dispatch({ type: 'ADD_IMAGES', payload: { cover, images } });
     } catch (err) {
       console.log(err);
     }
@@ -55,17 +57,17 @@ export const Add = () => {
 
   const mutation = useMutation({
     mutationFn: (gig) => {
-      return newRequest.post("/gigs", gig);
+      return newRequest.post('/gigs', gig);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["myGigs"]);
+      queryClient.invalidateQueries(['myGigs']);
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     mutation.mutate(state);
-    navigate("/mygigs");
+    navigate('/mygigs');
   };
 
   console.log(state);
@@ -106,7 +108,7 @@ export const Add = () => {
                 />
               </div>
               <button onClick={handleUpload}>
-                {uploading ? "Uploading" : "Upload"}
+                {uploading ? 'Uploading' : 'Upload'}
               </button>
             </div>
             <label htmlFor="">Description</label>
@@ -138,11 +140,15 @@ export const Add = () => {
               rows="10"
             ></textarea>
             <label htmlFor="">Hour per session (e.g 6 hours)</label>
-            <input type="number" name="availability" onChange={handleChange} />
+            <input
+              type="number"
+              name="availability"
+              onChange={handleChange}
+            />
             <label htmlFor="">Days to complete the topic</label>
             <input
               type="number"
-              name="days-to-complete"
+              name="daysToComplete"
               onChange={handleChange}
             />
             <label htmlFor="">Add Features</label>
@@ -155,7 +161,7 @@ export const Add = () => {
                 <div className="item" key={f}>
                   <button
                     onClick={() =>
-                      dispatch({ type: "REMOVE_FEATURE", payload: f })
+                      dispatch({ type: 'REMOVE_FEATURE', payload: f })
                     }
                   >
                     {f}
@@ -165,7 +171,11 @@ export const Add = () => {
               ))}
             </div>
             <label htmlFor="">Price</label>
-            <input type="number" onChange={handleChange} name="price" />
+            <input
+              type="number"
+              onChange={handleChange}
+              name="price"
+            />
           </div>
         </div>
       </div>
