@@ -1,0 +1,20 @@
+.table-container {
+  margin: 20px auto;
+  width: 80%;
+  text-align: center;
+}
+
+.table-custom {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.th-custom,
+.td-custom {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.th-custom {
+  background-color: #f2f2f2;
+}

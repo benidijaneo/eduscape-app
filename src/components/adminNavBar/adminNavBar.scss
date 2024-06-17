@@ -1,0 +1,21 @@
+.admin-navbar {
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  padding: 10px;
+
+  button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+
+  button.active {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+  }
+}
