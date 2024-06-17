@@ -7,10 +7,11 @@ export const TableContent = ({ selectedTab }) => {
         <table className="table-custom">
           <thead>
             <tr>
-              <th className="th-custom">Tutor Name:</th>
-              <th className="th-custom">Header 2</th>
-              <th className="th-custom">Header 3</th>
-              <th className="th-custom">Header 4</th>
+              <th className="th-custom">Tutor Name</th>
+              <th className="th-custom">Profile Picture</th>
+              <th className="th-custom">Valid ID</th>
+              <th className="th-custom">Resume</th>
+              <th className="th-custom">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -19,6 +20,7 @@ export const TableContent = ({ selectedTab }) => {
               <td className="td-custom">Data 2</td>
               <td className="td-custom">Data 3</td>
               <td className="td-custom">Data 4</td>
+              <td className="td-custom">Data 5</td>
             </tr>
           </tbody>
         </table>
@@ -27,10 +29,10 @@ export const TableContent = ({ selectedTab }) => {
         <table className="table-custom">
           <thead>
             <tr>
-              <th className="th-custom">Course Name:</th>
-              <th className="th-custom">Header 2</th>
-              <th className="th-custom">Header 3</th>
-              <th className="th-custom">Header 4</th>
+              <th className="th-custom">Course Name</th>
+              <th className="th-custom">Buyer Name</th>
+              <th className="th-custom">Reference No.</th>
+              <th className="th-custom">Payment Approval</th>
             </tr>
           </thead>
           <tbody>
