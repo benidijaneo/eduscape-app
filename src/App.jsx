@@ -11,6 +11,7 @@ import { Message } from "./pages/message/Message";
 import { MyGigs } from "./pages/myGigs/MyGigs";
 import { Login } from "./pages/login/Login";
 import { Register } from "./pages/register/Register";
+import { AdminPanel } from "./pages/adminPanel/AdminPanel";
 import Pay from "./pages/pay/Pay";
 import Success from "./pages/success/Success";
 
@@ -33,6 +34,7 @@ function App() {
     const noFooterPaths = [
       "/login",
       "/register",
+      "/eduscape-admin",
       "/pay/:id",
       "/success",
       "/messages",
@@ -106,6 +108,10 @@ function App() {
         {
           path: "/success",
           element: <Success />,
+        },
+        {
+          path: "/eduscape-admin",
+          element: <AdminPanel />,
         },
       ],
     },

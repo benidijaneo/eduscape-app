@@ -4,7 +4,7 @@ import { Featured } from "../../components/featured/Featured";
 import { Slide } from "../../components/Slide/Slide";
 
 import { CateCard } from "../../components/cateCard/CateCard";
-import { AdminPanel } from "../../components/adminPanel/AdminPanel";
+import { AdminPanel } from "../adminPanel/AdminPanel";
 import { cards } from "../../data";
 
 export const Home = () => {

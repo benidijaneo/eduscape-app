@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Messages.scss";
 import newRequest from "../../utils/newRequest";
 import moment from "moment";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const Messages = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -54,8 +54,6 @@ export const Messages = () => {
     fetchConversations();
   }, []);
 
-  const buyerImg = conData[0]?.buyerImg;
-
   return (
     <div className="messages">
       {isLoading ? (
@@ -73,6 +71,7 @@ export const Messages = () => {
               <th>{currentUser.isSeller ? "Buyer" : "Seller"}</th>
               <th>Last Message</th>
               <th>Date</th>
+              {currentUser.isSeller && <th>Google Meet</th>}
               <th>Action</th>
             </tr>
             {data.map((c) => (
@@ -87,7 +86,7 @@ export const Messages = () => {
                 <td>
                   <img
                     src={
-                      currentUser.isSeller ? ssl(buyerImg) : ssl(c?.sellerImg)
+                      currentUser.isSeller ? ssl(c.buyerImg) : ssl(c?.sellerImg)
                     }
                     alt="icon"
                   />
@@ -99,6 +98,11 @@ export const Messages = () => {
                   </Link>
                 </td>
                 <td>{moment(c.updatedAt).fromNow()}</td>
+                {currentUser.isSeller && (
+                  <td>
+                    <button>Provide gmeet link</button>
+                  </td>
+                )}
                 <td>
                   {((currentUser.isSeller && !c.readBySeller) ||
                     (!currentUser.isSeller && !c.readByBuyer)) && (
