@@ -3,13 +3,15 @@ import './Gig.scss';
 
 import { useQuery } from '@tanstack/react-query';
 import newRequest from '../../utils/newRequest';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Slider } from 'infinite-react-carousel/lib';
 import Reviews from '../../components/reviews/Reviews';
 import Dropdown from '../../components/dropDown/Dropdown';
 
 export const Gig = () => {
   const { id } = useParams();
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const navigate = useNavigate();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ['gig'],
@@ -61,6 +63,24 @@ export const Gig = () => {
     };
 
     return `${strMonths[month]} ${year}`;
+  };
+
+  const handleMessage = async () => {
+    const sellerId = userId;
+    const buyerId = currentUser._id;
+    const id = sellerId + buyerId;
+
+    try {
+      const res = await newRequest.get(`/conversations/single/${id}`);
+      navigate(`/message/${res.data.id}`);
+    } catch (err) {
+      if (err.response.status === 404) {
+        const res = await newRequest.post(`/conversations/`, {
+          to: currentUser.seller ? buyerId : sellerId,
+        });
+        navigate(`/message/${res.data.id}`);
+      }
+    }
   };
 
   return (
@@ -240,9 +260,7 @@ export const Gig = () => {
                 </div>
               ))}
             </div>
-            <Link to={`/pay/${id}`}>
-              <button>Message</button>
-            </Link>
+            <button onClick={() => handleMessage()}>Message</button>
           </div>
         </div>
       )}
