@@ -2,6 +2,8 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import newRequest from "../../utils/newRequest";
 import "./Message.scss";
+import backarrow from "/img/back-arrow-50.png";
+import gmeet from "/img/gmeet.png";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const Message = () => {
@@ -52,8 +54,12 @@ export const Message = () => {
     <div className="message">
       <div className="container">
         <span className="breadcrumbs">
-          <Link to="/messages">Messages</Link>
-          <Link to="#">Google Meet</Link>
+          <Link to="/messages">
+            <img src={backarrow} height={25} width={25} />
+          </Link>
+          <Link to="#">
+            <img src={gmeet} alt="gmeet-icon" height={35} width={35} />
+          </Link>
         </span>
         {isLoading ? (
           "loading"
