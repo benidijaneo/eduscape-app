@@ -1,6 +1,22 @@
 import React from 'react';
 import './tableContent.scss';
-export const TableContent = ({ selectedTab, tutorData }) => {
+import newRequest from '../../utils/newRequest';
+
+export const TableContent = ({
+  selectedTab,
+  trigger,
+  onHandleTrigger,
+  tutorData,
+}) => {
+  const handleApprove = async (id) => {
+    try {
+      const res = await newRequest.post(`/users/approve/${id}`);
+
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="table-container">
       {selectedTab === 'Tutor Approvals' && (
@@ -21,7 +37,20 @@ export const TableContent = ({ selectedTab, tutorData }) => {
                 <td className="td-custom">Data 2</td>
                 <td className="td-custom">Data 3</td>
                 <td className="td-custom">Data 4</td>
-                <td className="td-custom">Data 5</td>
+                <td className="td-custom">
+                  <button
+                    onClick={() => {
+                      handleApprove(tutor._id);
+                      onHandleTrigger(
+                        `${trigger}${
+                          Math.floor(Math.random() * 10) + 1
+                        }`
+                      );
+                    }}
+                  >
+                    approve
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

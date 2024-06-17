@@ -7,10 +7,15 @@ import newRequest from '../../utils/newRequest';
 export const AdminPanel = () => {
   const [selectedTab, setSelectedTab] = useState('Tutor Approvals');
   const [forApprovalAccounts, setforApprovalAccounts] = useState([]);
+  const [trigger, setTrigger] = useState('');
 
   const handleTabClick = (tab) => {
     console.log('click');
     setSelectedTab(tab);
+  };
+
+  const handleTrigger = (t) => {
+    setTrigger((trigger) => trigger.concat(t));
   };
 
   useEffect(() => {
@@ -37,6 +42,8 @@ export const AdminPanel = () => {
       />
       <TableContent
         selectedTab={selectedTab}
+        trigger={trigger}
+        onHandleTrigger={handleTrigger}
         tutorData={forApprovalAccounts}
       />
     </div>
