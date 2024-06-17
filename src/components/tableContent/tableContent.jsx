@@ -1,9 +1,9 @@
-import React from "react";
-import "./tableContent.scss";
-export const TableContent = ({ selectedTab }) => {
+import React from 'react';
+import './tableContent.scss';
+export const TableContent = ({ selectedTab, tutorData }) => {
   return (
     <div className="table-container">
-      {selectedTab === "Tutor Approvals" && (
+      {selectedTab === 'Tutor Approvals' && (
         <table className="table-custom">
           <thead>
             <tr>
@@ -15,17 +15,19 @@ export const TableContent = ({ selectedTab }) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="td-custom">Data 1</td>
-              <td className="td-custom">Data 2</td>
-              <td className="td-custom">Data 3</td>
-              <td className="td-custom">Data 4</td>
-              <td className="td-custom">Data 5</td>
-            </tr>
+            {tutorData.map((tutor) => (
+              <tr key={tutor._id}>
+                <td className="td-custom">{`${tutor.firstName} ${tutor.lastName}`}</td>
+                <td className="td-custom">Data 2</td>
+                <td className="td-custom">Data 3</td>
+                <td className="td-custom">Data 4</td>
+                <td className="td-custom">Data 5</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
-      {selectedTab === "Revenue Records" && (
+      {selectedTab === 'Revenue Records' && (
         <table className="table-custom">
           <thead>
             <tr>
