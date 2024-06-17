@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import "./Gig.scss";
+import React, { useState } from 'react';
+import './Gig.scss';
 
-import { useQuery } from "@tanstack/react-query";
-import newRequest from "../../utils/newRequest";
-import { Link, useParams } from "react-router-dom";
-import { Slider } from "infinite-react-carousel/lib";
-import Reviews from "../../components/reviews/Reviews";
-import Dropdown from "../../components/dropDown/Dropdown";
+import { useQuery } from '@tanstack/react-query';
+import newRequest from '../../utils/newRequest';
+import { Link, useParams } from 'react-router-dom';
+import { Slider } from 'infinite-react-carousel/lib';
+import Reviews from '../../components/reviews/Reviews';
+import Dropdown from '../../components/dropDown/Dropdown';
 
 export const Gig = () => {
   const { id } = useParams();
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["gig"],
+    queryKey: ['gig'],
     queryFn: () =>
       newRequest.get(`/gigs/single/${id}`).then((res) => {
         return res.data;
@@ -28,7 +28,7 @@ export const Gig = () => {
     error: errorUser,
     data: dataUser,
   } = useQuery({
-    queryKey: ["user"],
+    queryKey: ['user'],
     queryFn: () =>
       newRequest.get(`/users/${userId}`).then((res) => {
         return res.data;
@@ -38,26 +38,26 @@ export const Gig = () => {
   console.log(dataUser);
 
   const formatDate = (date) => {
-    const dateArr = date.split(":")[0].split("-");
+    const dateArr = date.split(':')[0].split('-');
     const year = dateArr[0];
     const month = dateArr[1]
-      .split("")
+      .split('')
       .filter((n, i) => n != 0 && i != 0)
-      .join("");
+      .join('');
 
     const strMonths = {
-      1: "January",
-      2: "February",
-      3: "March",
-      4: "April",
-      5: "May",
-      6: "June",
-      7: "July",
-      8: "August",
-      9: "September",
-      10: "October",
-      11: "November",
-      12: "December",
+      1: 'January',
+      2: 'February',
+      3: 'March',
+      4: 'April',
+      5: 'May',
+      6: 'June',
+      7: 'July',
+      8: 'August',
+      9: 'September',
+      10: 'October',
+      11: 'November',
+      12: 'December',
     };
 
     return `${strMonths[month]} ${year}`;
@@ -66,50 +66,63 @@ export const Gig = () => {
   return (
     <div className="gig">
       {isLoading ? (
-        "loading"
+        'loading'
       ) : error ? (
-        "Something went wrong!"
+        'Something went wrong!'
       ) : (
         <div className="container">
           <div className="left">
             <span className="breadcrumbs"></span>
             <h1>{data.title}</h1>
             {isLoadingUser ? (
-              "loading"
+              'loading'
             ) : errorUser ? (
-              "Something went wrong!"
+              'Something went wrong!'
             ) : (
               <div className="user">
                 <img
                   className="pp"
-                  src={dataUser.img || "/img/noavatar.jpg"}
+                  src={dataUser.img || '/img/noavatar.jpg'}
                   alt=""
                 />
 
                 <span>{`${dataUser.firstName} ${dataUser.lastName}`}</span>
-                {Math.round(data.totalStars / data.startNumber) === Infinity ? (
-                  ""
+                {Math.round(data.totalStars / data.startNumber) ===
+                Infinity ? (
+                  ''
                 ) : (
                   <div className="stars">
                     {Array(
-                      isNaN(Math.round(data.totalStars / data.startNumber))
+                      isNaN(
+                        Math.round(data.totalStars / data.startNumber)
+                      )
                         ? 0
-                        : Math.round(data.totalStars / data.startNumber)
+                        : Math.round(
+                            data.totalStars / data.startNumber
+                          )
                     )
                       .fill()
                       .map((item, i) => (
                         <img src="/img/star.png" alt="" key={i} />
                       ))}
                     <span>
-                      {isNaN(Math.round(data.totalStars / data.startNumber))
-                        ? ""
-                        : Math.round(data.totalStars / data.startNumber)}
+                      {isNaN(
+                        Math.round(data.totalStars / data.startNumber)
+                      )
+                        ? ''
+                        : Math.round(
+                            data.totalStars / data.startNumber
+                          )}
                     </span>
                   </div>
                 )}
               </div>
             )}
-            <Slider slidesToShow={1} arrowsScroll={1} className="slider">
+            <Slider
+              slidesToShow={1}
+              arrowsScroll={1}
+              className="slider"
+            >
               {data.images.map((img) => (
                 <img key={img} src={img} alt="" />
               ))}
@@ -118,34 +131,50 @@ export const Gig = () => {
             <h2>About This Service</h2>
             <p>{data.desc}</p>
             {isLoadingUser ? (
-              "loading"
+              'loading'
             ) : errorUser ? (
-              "Something went wrong!"
+              'Something went wrong!'
             ) : (
               <div className="seller">
                 <h2>About The Tutor</h2>
                 <div className="user">
-                  <img src={dataUser.img || "/img/noavatar.jpg"} alt="" />
+                  <img
+                    src={dataUser.img || '/img/noavatar.jpg'}
+                    alt=""
+                  />
                   <div className="info">
                     <span>{`${dataUser.firstName} ${dataUser.lastName}`}</span>
-                    {Math.round(data.totalStars / data.startNumber) ===
-                    Infinity ? (
-                      ""
+                    {Math.round(
+                      data.totalStars / data.startNumber
+                    ) === Infinity ? (
+                      ''
                     ) : (
                       <div className="stars">
                         {Array(
-                          isNaN(Math.round(data.totalStars / data.startNumber))
+                          isNaN(
+                            Math.round(
+                              data.totalStars / data.startNumber
+                            )
+                          )
                             ? 0
-                            : Math.round(data.totalStars / data.startNumber)
+                            : Math.round(
+                                data.totalStars / data.startNumber
+                              )
                         )
                           .fill()
                           .map((item, i) => (
                             <img src="/img/star.png" alt="" key={i} />
                           ))}
                         <span>
-                          {isNaN(Math.round(data.totalStars / data.startNumber))
-                            ? ""
-                            : Math.round(data.totalStars / data.startNumber)}
+                          {isNaN(
+                            Math.round(
+                              data.totalStars / data.startNumber
+                            )
+                          )
+                            ? ''
+                            : Math.round(
+                                data.totalStars / data.startNumber
+                              )}
                         </span>
                       </div>
                     )}
@@ -165,7 +194,9 @@ export const Gig = () => {
                   <div className="items">
                     <div className="item">
                       <span className="title">From</span>
-                      <span className="desc">{dataUser.province}</span>
+                      <span className="desc">
+                        {dataUser.province}
+                      </span>
                     </div>
                     <div className="item">
                       <span className="title">Member since</span>

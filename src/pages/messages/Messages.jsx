@@ -61,7 +61,6 @@ export const Messages = () => {
     fetchConversations();
   }, []);
 
-  const sellerImg = conData[0]?.sellerImg;
   const buyerImg = conData[0]?.buyerImg;
 
   return (
@@ -97,7 +96,7 @@ export const Messages = () => {
                     src={
                       currentUser.isSeller
                         ? ssl(buyerImg)
-                        : ssl(sellerImg)
+                        : ssl(c?.sellerImg)
                     }
                     alt="icon"
                   />
