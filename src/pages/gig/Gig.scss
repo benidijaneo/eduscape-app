@@ -219,6 +219,17 @@
       }
     }
 
+    .btn-cont {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+    }
+
     .right {
       flex: 1;
       border: 1px solid lightgray;
