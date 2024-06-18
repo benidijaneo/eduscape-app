@@ -232,7 +232,7 @@ export const Gig = () => {
             <div className="btn-cont">
               <button onClick={() => handleMessage()}>Message</button>
               <button>
-                <Link to={"/pay"}>Avail Service</Link>
+                <Link to={"/pay"}>Avail Service </Link>
               </button>
             </div>
           </div>
