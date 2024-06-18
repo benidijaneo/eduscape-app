@@ -21,6 +21,10 @@
     gap: 8px;
   }
 
+  .custom-form {
+    color: #1c1c1c;
+  }
+
   .custom-btn {
     padding: 10px 20px;
     border: none;
@@ -36,8 +40,8 @@
   }
 
   .custom-btn:hover,
-  .button:focus,
-  .button:focus-visible {
+  .custom-btn:focus,
+  .custom-btn:focus-visible {
     background: #353535;
     box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05) inset,
       0 0 0 1px rgba(0, 0, 0, 0.7), 0 -1px 0 0 rgba(0, 0, 0, 0.7) inset,
