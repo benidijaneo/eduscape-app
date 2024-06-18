@@ -16,6 +16,12 @@ export const AdminNavBar = ({ onTabClick, selectedTab }) => {
       >
         Revenue Records
       </button>
+      <button
+        className={selectedTab === "Gcash QR" ? "active" : ""}
+        onClick={() => onTabClick("Gcash QR")}
+      >
+        Gcash QR
+      </button>
     </div>
   );
 };

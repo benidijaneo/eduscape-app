@@ -1,6 +1,6 @@
-import React from 'react';
-import './tableContent.scss';
-import newRequest from '../../utils/newRequest';
+import React, { useState } from "react";
+import "./tableContent.scss";
+import newRequest from "../../utils/newRequest";
 
 export const TableContent = ({
   selectedTab,
@@ -17,9 +17,16 @@ export const TableContent = ({
       console.log(err);
     }
   };
+
+  const handleClick = () => {
+    setApprove((prevApprove) => !prevApprove);
+  };
+
+  const [approve, setApprove] = useState(false);
+
   return (
     <div className="table-container">
-      {selectedTab === 'Tutor Approvals' && (
+      {selectedTab === "Tutor Approvals" && (
         <table className="table-custom">
           <thead>
             <tr>
@@ -38,7 +45,7 @@ export const TableContent = ({
                 <td className="td-custom">Data 3</td>
                 <td className="td-custom">Data 4</td>
                 <td className="td-custom">
-                  <button
+                  {/* <button
                     onClick={() => {
                       handleApprove(tutor._id);
                       onHandleTrigger(
@@ -49,6 +56,9 @@ export const TableContent = ({
                     }}
                   >
                     approve
+                  </button> */}
+                  <button onClick={handleClick}>
+                    {approve ? "Disapprove" : "Approve"}
                   </button>
                 </td>
               </tr>
@@ -56,7 +66,7 @@ export const TableContent = ({
           </tbody>
         </table>
       )}
-      {selectedTab === 'Revenue Records' && (
+      {selectedTab === "Revenue Records" && (
         <table className="table-custom">
           <thead>
             <tr>
@@ -75,6 +85,12 @@ export const TableContent = ({
             </tr>
           </tbody>
         </table>
+      )}
+      {selectedTab === "Gcash QR" && (
+        <>
+          <label htmlFor="">Gcash QR</label>
+          <input type="file" />
+        </>
       )}
     </div>
   );
