@@ -117,8 +117,23 @@ export const TableContent = ({ selectedTab, tutorData, onApprove }) => {
               <tr key={record._id}>
                 <td className="td-custom">{record.gigData.title}</td>
                 <td className="td-custom">{`${record.buyerData.firstName} ${record.buyerData.lastName}`}</td>
-                <td className="td-custom">Data C</td>
-                <td className="td-custom">Data D</td>
+                <td className="td-custom">
+                  <button className="custom-btn">
+                    <span className="btn-flex">
+                      <img className="attachment" src={attachment} alt="icon" />
+                      <a
+                        href={record.referenceNumber}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Click to see attachment
+                      </a>
+                    </span>
+                  </button>
+                </td>
+                <td className="td-custom">
+                  <button className="custom-btn">Approve</button>
+                </td>
               </tr>
             ))}
           </tbody>

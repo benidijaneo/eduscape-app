@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import './Pay.scss';
-import GcashQR from '/img/gcash-qr.png';
-import newRequest from '../../utils/newRequest';
-import { useParams } from 'react-router-dom';
-import upload from '../../utils/upload';
+import React, { useEffect, useState } from "react";
+import "./Pay.scss";
+import newRequest from "../../utils/newRequest";
+import { useParams } from "react-router-dom";
+import upload from "../../utils/upload";
+
+import payment from "/img/money-transfer.svg";
 
 const Pay = () => {
   const { id } = useParams();
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const [adminData, setAdminData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [gig, setGig] = useState({});
@@ -35,7 +36,7 @@ const Pay = () => {
       setIsLoading(true);
       try {
         const res = await newRequest.get(
-          '/users/admin/66701a8d1586b3b0024aa83c'
+          "/users/admin/66701a8d1586b3b0024aa83c"
         );
         if (res.status == 200) setIsLoading(false);
 
@@ -62,23 +63,44 @@ const Pay = () => {
 
   return (
     <div className="payment-container">
-      <div className="qr-container">
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : (
-          <img src={adminData.gcashQR} alt="QR" height={'800px'} />
-        )}
+      <div className="left">
+        <h3>Transaction Details</h3>
+        <p>
+          You are one step away from your learning adventure. Scan the QR Code
+          and start exploring a world of knowledge with our dedicated tutors by
+          your side.
+        </p>
+        <hr />
+        <h4>AMOUNT TO BE PAID: X</h4>
+        Course Name: X
+        <img className="payment-svg" src={payment} alt="" />
       </div>
-      <form>
-        <label htmlFor="">Reference No. </label>
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-        />
-        <button type="submit" onClick={(e) => handleSubmit(e)}>
-          Confirm
-        </button>
-      </form>
+      <div className="right">
+        <div className="qr-container">
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <img src={adminData.gcashQR} alt="QR" height={500} />
+          )}
+        </div>
+        <form className="custom-form">
+          <label htmlFor="file-upload" className="custom-file-upload">
+            Upload Reference No.
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <button
+            className="custom-file-upload"
+            type="submit"
+            onClick={(e) => handleSubmit(e)}
+          >
+            Confirm
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
