@@ -12,6 +12,23 @@ export const Messages = () => {
   const [error, setError] = useState(false);
   const [conData, setConData] = useState({});
 
+  // MODAL
+
+  const [showModal, setShowModal] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -100,7 +117,31 @@ export const Messages = () => {
                 <td>{moment(c.updatedAt).fromNow()}</td>
                 {currentUser.isSeller && (
                   <td>
-                    <button>Provide link</button>
+                    <button onClick={handleOpenModal}>Provide link</button>
+                    {showModal && (
+                      <div className="modal">
+                        <div className="modal-content">
+                          <div className="close-btn">
+                            <button
+                              className="close"
+                              onClick={handleCloseModal}
+                            >
+                              Close
+                            </button>
+                          </div>
+                          <form action="submit" className="gmeet-form">
+                            <input
+                              type="text"
+                              value={inputValue}
+                              onChange={handleInputChange}
+                              placeholder="Enter Google Meet Link"
+                            />
+
+                            <button>Submit</button>
+                          </form>
+                        </div>
+                      </div>
+                    )}
                   </td>
                 )}
                 <td>
