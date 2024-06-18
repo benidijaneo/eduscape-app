@@ -10,10 +10,15 @@ export const Register = () => {
   const [resumeFile, setResumeFile] = useState(null);
   const [validIDFile, setValidIDFile] = useState(null);
   const [user, setUser] = useState({});
+  const [toggleTutor, setToggleTutor] = useState(false);
 
   console.log(user);
 
   const navigate = useNavigate();
+
+  const handleToggleTutor = () => {
+    setToggleTutor((prevtoggleTutor) => !prevtoggleTutor);
+  };
 
   const handleChange = (e) => {
     setUser((prev) => {
@@ -121,7 +126,12 @@ export const Register = () => {
           <div className="toggle">
             <label htmlFor="">Activate the tutor account</label>
             <label className="switch">
-              <input type="checkbox" onChange={handleSeller} />
+              <input
+                type="checkbox"
+                onChange={handleSeller}
+                value={toggleTutor}
+                onClick={handleToggleTutor}
+              />
               <span className="slider round"></span>
             </label>
           </div>
@@ -133,36 +143,40 @@ export const Register = () => {
             onChange={handleChange}
           />
 
-          <label htmlFor="">Social Links</label>
-          <input
-            name="facebook"
-            type="text"
-            placeholder="Facebook"
-            onChange={handleChange}
-          />
-          <input
-            name="gmail"
-            type="text"
-            placeholder="Gmail"
-            onChange={handleChange}
-          />
-          <input
-            name="linkedin"
-            type="text"
-            placeholder="LinkedIn"
-            onChange={handleChange}
-          />
+          {toggleTutor && (
+            <>
+              <label htmlFor="">Social Links</label>
+              <input
+                name="facebook"
+                type="text"
+                placeholder="Facebook"
+                onChange={handleChange}
+              />
+              <input
+                name="gmail"
+                type="text"
+                placeholder="Gmail"
+                onChange={handleChange}
+              />
+              <input
+                name="linkedin"
+                type="text"
+                placeholder="LinkedIn"
+                onChange={handleChange}
+              />
 
-          <label htmlFor="">Resume</label>
-          <input
-            type="file"
-            onChange={(e) => setResumeFile(e.target.files[0])}
-          />
-          <label htmlFor="">Valid ID</label>
-          <input
-            type="file"
-            onChange={(e) => setValidIDFile(e.target.files[0])}
-          />
+              <label htmlFor="">Resume</label>
+              <input
+                type="file"
+                onChange={(e) => setResumeFile(e.target.files[0])}
+              />
+              <label htmlFor="">Valid ID</label>
+              <input
+                type="file"
+                onChange={(e) => setValidIDFile(e.target.files[0])}
+              />
+            </>
+          )}
 
           <label htmlFor="">Description</label>
           <textarea
