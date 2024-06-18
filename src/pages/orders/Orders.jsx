@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Orders.scss';
 import newRequest from '../../utils/newRequest';
 import { useQuery } from '@tanstack/react-query';
@@ -6,40 +6,35 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export const Orders = () => {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
   const navigate = useNavigate();
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['orders'],
-    queryFn: () =>
-      newRequest.get(`/orders`).then((res) => {
-        return res.data;
-      }),
-  });
-  console.log(data);
+  const [isLoading, setIsLoading] = useState(false);
+  const [revRecords, setRevRecords] = useState([]);
 
-  const handleContact = async (order) => {
-    const sellerId = order.sellerId;
-    const buyerId = order.buyerId;
-    const id = sellerId + buyerId;
+  const lamar = revRecords.filter(
+    (order) => order.buyerData._id == currentUser._id
+  );
 
-    try {
-      const res = await newRequest.get(`/conversations/single/${id}`);
-      navigate(`/message/${res.data.id}`);
-    } catch (err) {
-      if (err.response.status === 404) {
-        const res = await newRequest.post(`/conversations/`, {
-          to: currentUser.seller ? buyerId : sellerId,
-        });
-        navigate(`/message/${res.data.id}`);
+  useEffect(() => {
+    const fetchOrders = async () => {
+      setIsLoading(true);
+      try {
+        const res = await newRequest.get(`/payment/all/orders`);
+        console.log(res);
+        setRevRecords(res.data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsLoading(false);
       }
-    }
-  };
+    };
+
+    fetchOrders();
+  }, []);
+
   return (
     <div className="orders">
       {isLoading ? (
         'loading'
-      ) : error ? (
-        'error'
       ) : (
         <div className="container">
           <div className="title">
@@ -52,19 +47,23 @@ export const Orders = () => {
               <th>Price</th>
               <th>Contact</th>
             </tr>
-            {data.map((order) => (
-              <tr key={order._id}>
+
+            {lamar.map((record) => (
+              <tr key={record._id}>
                 <td>
-                  <img className="image" src={order.img} alt="" />
+                  <img
+                    className="image"
+                    src={record.gigData.images[0]}
+                    alt=""
+                  />
                 </td>
-                <td>{order.title}</td>
-                <td>{order.price}</td>
+                <td>{record.gigData.title}</td>
+                <td>{record.gigData.price}</td>
                 <td>
                   <img
                     className="message-icon"
                     src="./img/message.png"
                     alt=""
-                    onClick={() => handleContact(order)}
                   />
                 </td>
               </tr>
