@@ -100,7 +100,7 @@ export const Messages = () => {
                 <td>{moment(c.updatedAt).fromNow()}</td>
                 {currentUser.isSeller && (
                   <td>
-                    <button>Provide gmeet link</button>
+                    <button>Provide link</button>
                   </td>
                 )}
                 <td>
