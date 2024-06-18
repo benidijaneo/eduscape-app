@@ -1,20 +1,24 @@
-import React, { useState } from "react";
-import "./tableContent.scss";
-import newRequest from "../../utils/newRequest";
-import axios from "axios";
-import upload from "../../utils/upload";
+import React, { useEffect, useState } from 'react';
+import './tableContent.scss';
+import newRequest from '../../utils/newRequest';
+import upload from '../../utils/upload';
 
-import attachment from "/img/attachment.svg";
+import attachment from '/img/attachment.svg';
 
-export const TableContent = ({ selectedTab, tutorData, onApprove }) => {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+export const TableContent = ({
+  selectedTab,
+  tutorData,
+  onApprove,
+}) => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const [file, setFile] = useState(null);
+  const [revRecords, setRevRecords] = useState([]);
 
   const handleUploadQR = async (e) => {
     e.preventDefault();
 
     const url = await upload(file);
-    console.log("uploaded");
+    console.log('uploaded');
     try {
       const id = currentUser._id;
       await newRequest.post(`/users/upload-gcash/${id}`, {
@@ -24,9 +28,25 @@ export const TableContent = ({ selectedTab, tutorData, onApprove }) => {
       console.log(err);
     }
   };
+
+  console.log(revRecords);
+  useEffect(() => {
+    const getRevenueRecords = async () => {
+      try {
+        const res = await newRequest.get(`/payment/records/all`);
+
+        setRevRecords(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getRevenueRecords();
+  }, []);
+
   return (
     <div className="table-container">
-      {selectedTab === "Tutor Approvals" && (
+      {selectedTab === 'Tutor Approvals' && (
         <table className="table-custom">
           <thead>
             <tr>
@@ -44,8 +64,16 @@ export const TableContent = ({ selectedTab, tutorData, onApprove }) => {
                 <td className="td-custom">
                   <button className="custom-btn">
                     <span className="btn-flex">
-                      <img className="attachment" src={attachment} alt="icon" />
-                      <a href={tutor.img} target="_blank" rel="noreferrer">
+                      <img
+                        className="attachment"
+                        src={attachment}
+                        alt="icon"
+                      />
+                      <a
+                        href={tutor.img}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         Click to see attachment
                       </a>
                     </span>
@@ -54,8 +82,16 @@ export const TableContent = ({ selectedTab, tutorData, onApprove }) => {
                 <td className="td-custom">
                   <button className="custom-btn">
                     <span className="btn-flex">
-                      <img className="attachment" src={attachment} alt="icon" />
-                      <a href={tutor.validID} target="_blank" rel="noreferrer">
+                      <img
+                        className="attachment"
+                        src={attachment}
+                        alt="icon"
+                      />
+                      <a
+                        href={tutor.validID}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         Click to see attachment
                       </a>
                     </span>
@@ -64,8 +100,16 @@ export const TableContent = ({ selectedTab, tutorData, onApprove }) => {
                 <td className="td-custom">
                   <button className="custom-btn">
                     <span className="btn-flex">
-                      <img className="attachment" src={attachment} alt="icon" />
-                      <a href={tutor.resume} target="_blank" rel="noreferrer">
+                      <img
+                        className="attachment"
+                        src={attachment}
+                        alt="icon"
+                      />
+                      <a
+                        href={tutor.resume}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         Click to see attachment
                       </a>
                     </span>
@@ -86,7 +130,7 @@ export const TableContent = ({ selectedTab, tutorData, onApprove }) => {
           </tbody>
         </table>
       )}
-      {selectedTab === "Revenue Records" && (
+      {selectedTab === 'Revenue Records' && (
         <table className="table-custom">
           <thead>
             <tr>
@@ -97,20 +141,25 @@ export const TableContent = ({ selectedTab, tutorData, onApprove }) => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="td-custom">Data A</td>
-              <td className="td-custom">Data B</td>
-              <td className="td-custom">Data C</td>
-              <td className="td-custom">Data D</td>
-            </tr>
+            {revRecords.map((record) => (
+              <tr key={record._id}>
+                <td className="td-custom">{record.gigData.title}</td>
+                <td className="td-custom">{`${record.buyerData.firstName} ${record.buyerData.lastName}`}</td>
+                <td className="td-custom">Data C</td>
+                <td className="td-custom">Data D</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
-      {selectedTab === "Gcash QR" && (
+      {selectedTab === 'Gcash QR' && (
         <>
           <form>
             <label htmlFor="">Gcash QR</label>
-            <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+            <input
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
             <button onClick={(e) => handleUploadQR(e)}>upload</button>
           </form>
         </>
