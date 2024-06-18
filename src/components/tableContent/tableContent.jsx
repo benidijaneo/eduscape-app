@@ -1,39 +1,20 @@
-import React, { useState } from 'react';
-import './tableContent.scss';
-import newRequest from '../../utils/newRequest';
-import axios from 'axios';
-import upload from '../../utils/upload';
+import React, { useState } from "react";
+import "./tableContent.scss";
+import newRequest from "../../utils/newRequest";
+import axios from "axios";
+import upload from "../../utils/upload";
 
-export const TableContent = ({
-  selectedTab,
-  trigger,
-  onHandleTrigger,
-  tutorData,
-}) => {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+import attachment from "/img/attachment.svg";
+
+export const TableContent = ({ selectedTab, tutorData, onApprove }) => {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const [file, setFile] = useState(null);
-
-  const handleApprove = async (id) => {
-    try {
-      const res = await newRequest.post(`/users/approve/${id}`);
-
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const handleClick = () => {
-    setApprove((prevApprove) => !prevApprove);
-  };
-
-  const [approve, setApprove] = useState(false);
 
   const handleUploadQR = async (e) => {
     e.preventDefault();
 
     const url = await upload(file);
-    console.log('uploaded');
+    console.log("uploaded");
     try {
       const id = currentUser._id;
       await newRequest.post(`/users/upload-gcash/${id}`, {
@@ -43,10 +24,9 @@ export const TableContent = ({
       console.log(err);
     }
   };
-
   return (
     <div className="table-container">
-      {selectedTab === 'Tutor Approvals' && (
+      {selectedTab === "Tutor Approvals" && (
         <table className="table-custom">
           <thead>
             <tr>
@@ -61,24 +41,44 @@ export const TableContent = ({
             {tutorData.map((tutor) => (
               <tr key={tutor._id}>
                 <td className="td-custom">{`${tutor.firstName} ${tutor.lastName}`}</td>
-                <td className="td-custom">Data 2</td>
-                <td className="td-custom">Data 3</td>
-                <td className="td-custom">Data 4</td>
                 <td className="td-custom">
-                  {/* <button
+                  <button className="custom-btn">
+                    <span className="btn-flex">
+                      <img className="attachment" src={attachment} alt="icon" />
+                      <a href={tutor.img} target="_blank" rel="noreferrer">
+                        Click to see attachment
+                      </a>
+                    </span>
+                  </button>
+                </td>
+                <td className="td-custom">
+                  <button className="custom-btn">
+                    <span className="btn-flex">
+                      <img className="attachment" src={attachment} alt="icon" />
+                      <a href={tutor.validID} target="_blank" rel="noreferrer">
+                        Click to see attachment
+                      </a>
+                    </span>
+                  </button>
+                </td>
+                <td className="td-custom">
+                  <button className="custom-btn">
+                    <span className="btn-flex">
+                      <img className="attachment" src={attachment} alt="icon" />
+                      <a href={tutor.resume} target="_blank" rel="noreferrer">
+                        Click to see attachment
+                      </a>
+                    </span>
+                  </button>
+                </td>
+                <td className="td-custom">
+                  <button
+                    className="custom-btn"
                     onClick={() => {
-                      handleApprove(tutor._id);
-                      onHandleTrigger(
-                        `${trigger}${
-                          Math.floor(Math.random() * 10) + 1
-                        }`
-                      );
+                      onApprove(tutor._id);
                     }}
                   >
-                    approve
-                  </button> */}
-                  <button onClick={handleClick}>
-                    {approve ? 'Disapprove' : 'Approve'}
+                    Approve
                   </button>
                 </td>
               </tr>
@@ -86,7 +86,7 @@ export const TableContent = ({
           </tbody>
         </table>
       )}
-      {selectedTab === 'Revenue Records' && (
+      {selectedTab === "Revenue Records" && (
         <table className="table-custom">
           <thead>
             <tr>
@@ -106,14 +106,11 @@ export const TableContent = ({
           </tbody>
         </table>
       )}
-      {selectedTab === 'Gcash QR' && (
+      {selectedTab === "Gcash QR" && (
         <>
           <form>
             <label htmlFor="">Gcash QR</label>
-            <input
-              type="file"
-              onChange={(e) => setFile(e.target.files[0])}
-            />
+            <input type="file" onChange={(e) => setFile(e.target.files[0])} />
             <button onClick={(e) => handleUploadQR(e)}>upload</button>
           </form>
         </>

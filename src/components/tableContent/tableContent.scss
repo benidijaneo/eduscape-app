@@ -2,19 +2,71 @@
   margin: 20px auto;
   width: 80%;
   text-align: center;
-}
+  color: #fff;
 
-.table-custom {
-  width: 100%;
-  border-collapse: collapse;
-}
+  a {
+    text-decoration: none;
+    color: white;
+  }
 
-.th-custom,
-.td-custom {
-  border: 1px solid black;
-  padding: 10px;
-}
+  .attachment {
+    height: 16px;
+    width: 16px;
+  }
 
-.th-custom {
-  background-color: #f2f2f2;
+  .btn-flex {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    gap: 8px;
+  }
+
+  .custom-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 2px;
+    background: #424242;
+    color: white;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1) inset,
+      0 0 0 1px rgba(0, 0, 0, 0.7), 0 -1px 0 0 rgba(0, 0, 0, 0.7) inset,
+      0 1px 2px 1px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    transition: 50ms ease-out;
+    font-weight: 600;
+  }
+
+  .custom-btn:hover,
+  .button:focus,
+  .button:focus-visible {
+    background: #353535;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.05) inset,
+      0 0 0 1px rgba(0, 0, 0, 0.7), 0 -1px 0 0 rgba(0, 0, 0, 0.7) inset,
+      0 1px 2px 1px rgba(0, 0, 0, 0.6);
+    border: none;
+    outline: none;
+  }
+
+  .custom-btn:active {
+    background: #181818;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.7) inset,
+      0 1px 0 0 rgba(255, 255, 255, 0.05),
+      0 1px 2px 1px rgba(0, 0, 0, 0.6) inset;
+  }
+
+  .table-custom {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .th-custom,
+  .td-custom {
+    border: 1px solid black;
+    padding: 10px;
+    color: #1c1c1c;
+  }
+
+  .th-custom {
+    background-color: #1c1c1c;
+    color: white;
+  }
 }
