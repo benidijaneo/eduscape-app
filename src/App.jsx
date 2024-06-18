@@ -1,19 +1,19 @@
-import React from "react";
-import { Navbar } from "./components/navbar/Navbar";
-import { Footer } from "./components/footer/Footer";
-import { Home } from "./pages/home/Home";
-import { Gigs } from "./pages/gigs/Gigs";
-import { Gig } from "./pages/gig/Gig";
-import { Add } from "./pages/add/Add";
-import { Orders } from "./pages/orders/Orders";
-import { Messages } from "./pages/messages/Messages";
-import { Message } from "./pages/message/Message";
-import { MyGigs } from "./pages/myGigs/MyGigs";
-import { Login } from "./pages/login/Login";
-import { Register } from "./pages/register/Register";
-import { AdminPanel } from "./pages/adminPanel/AdminPanel";
-import Pay from "./pages/pay/Pay";
-import Success from "./pages/success/Success";
+import React from 'react';
+import { Navbar } from './components/navbar/Navbar';
+import { Footer } from './components/footer/Footer';
+import { Home } from './pages/home/Home';
+import { Gigs } from './pages/gigs/Gigs';
+import { Gig } from './pages/gig/Gig';
+import { Add } from './pages/add/Add';
+import { Orders } from './pages/orders/Orders';
+import { Messages } from './pages/messages/Messages';
+import { Message } from './pages/message/Message';
+import { MyGigs } from './pages/myGigs/MyGigs';
+import { Login } from './pages/login/Login';
+import { Register } from './pages/register/Register';
+import { AdminPanel } from './pages/adminPanel/AdminPanel';
+import Pay from './pages/pay/Pay';
+import Success from './pages/success/Success';
 
 import {
   createBrowserRouter,
@@ -21,24 +21,27 @@ import {
   Outlet,
   matchPath,
   useLocation,
-} from "react-router-dom";
+} from 'react-router-dom';
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 
-import "./App.scss";
+import './App.scss';
 
 function App() {
   const queryClient = new QueryClient();
   const Layout = () => {
     const location = useLocation();
     const noFooterPaths = [
-      "/login",
-      "/register",
-      "/eduscape-admin",
-      "/pay/:id",
-      "/success",
-      "/messages",
-      "/message/:id",
+      '/login',
+      '/register',
+      '/eduscape-admin',
+      '/pay/:id',
+      '/success',
+      '/messages',
+      '/message/:id',
     ];
 
     const shouldHideFooter = noFooterPaths.some((path) =>
@@ -58,59 +61,59 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: '/',
       element: <Layout />,
       children: [
         {
-          path: "/",
+          path: '/',
           element: <Home />,
         },
         {
-          path: "/gigs",
+          path: '/gigs',
           element: <Gigs />,
         },
         {
-          path: "/myGigs",
+          path: '/myGigs',
           element: <MyGigs />,
         },
         {
-          path: "/orders",
+          path: '/orders',
           element: <Orders />,
         },
         {
-          path: "/messages",
+          path: '/messages',
           element: <Messages />,
         },
         {
-          path: "/message/:id",
+          path: '/message/:id',
           element: <Message />,
         },
         {
-          path: "/add",
+          path: '/add',
           element: <Add />,
         },
         {
-          path: "/gig/:id",
+          path: '/gig/:id',
           element: <Gig />,
         },
         {
-          path: "/register",
+          path: '/register',
           element: <Register />,
         },
         {
-          path: "/login",
+          path: '/login',
           element: <Login />,
         },
         {
-          path: "/pay",
+          path: '/pay',
           element: <Pay />,
         },
         {
-          path: "/success",
+          path: '/success',
           element: <Success />,
         },
         {
-          path: "/eduscape-admin",
+          path: '/eduscape-admin',
           element: <AdminPanel />,
         },
       ],

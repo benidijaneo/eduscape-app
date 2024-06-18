@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import "./tableContent.scss";
-import newRequest from "../../utils/newRequest";
+import React, { useState } from 'react';
+import './tableContent.scss';
+import newRequest from '../../utils/newRequest';
+import axios from 'axios';
+import upload from '../../utils/upload';
 
 export const TableContent = ({
   selectedTab,
@@ -8,6 +10,9 @@ export const TableContent = ({
   onHandleTrigger,
   tutorData,
 }) => {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const [file, setFile] = useState(null);
+
   const handleApprove = async (id) => {
     try {
       const res = await newRequest.post(`/users/approve/${id}`);
@@ -24,9 +29,24 @@ export const TableContent = ({
 
   const [approve, setApprove] = useState(false);
 
+  const handleUploadQR = async (e) => {
+    e.preventDefault();
+
+    const url = await upload(file);
+    console.log('uploaded');
+    try {
+      const id = currentUser._id;
+      await newRequest.post(`/users/upload-gcash/${id}`, {
+        imgURL: url,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="table-container">
-      {selectedTab === "Tutor Approvals" && (
+      {selectedTab === 'Tutor Approvals' && (
         <table className="table-custom">
           <thead>
             <tr>
@@ -58,7 +78,7 @@ export const TableContent = ({
                     approve
                   </button> */}
                   <button onClick={handleClick}>
-                    {approve ? "Disapprove" : "Approve"}
+                    {approve ? 'Disapprove' : 'Approve'}
                   </button>
                 </td>
               </tr>
@@ -66,7 +86,7 @@ export const TableContent = ({
           </tbody>
         </table>
       )}
-      {selectedTab === "Revenue Records" && (
+      {selectedTab === 'Revenue Records' && (
         <table className="table-custom">
           <thead>
             <tr>
@@ -86,10 +106,16 @@ export const TableContent = ({
           </tbody>
         </table>
       )}
-      {selectedTab === "Gcash QR" && (
+      {selectedTab === 'Gcash QR' && (
         <>
-          <label htmlFor="">Gcash QR</label>
-          <input type="file" />
+          <form>
+            <label htmlFor="">Gcash QR</label>
+            <input
+              type="file"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <button onClick={(e) => handleUploadQR(e)}>upload</button>
+          </form>
         </>
       )}
     </div>
