@@ -3,6 +3,8 @@
   align-items: center;
   justify-content: center;
 
+  border-radius: 6px;
+
   height: 80vh;
 
   .left-img {
@@ -19,6 +21,9 @@
     height: 540px;
     border-right: 1px solid #f1f1fb;
     padding: 0 50px;
+
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
 
     .error-message {
       background-color: #f5d7d7;
@@ -72,6 +77,9 @@
     background: #1c1c1c;
     height: 540px;
     padding: 0 50px;
+
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
   }
 
   h3 {
