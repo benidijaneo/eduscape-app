@@ -4,16 +4,16 @@ import facebook from "/img/facebook.png";
 import gmail from "/img/gmail.png";
 import linkedin from "/img/linkedin.png";
 
-const Dropdown = () => {
+const Dropdown = ({ dataUser }) => {
   return (
     <div className="contact-list">
-      <a to="/orders">
+      <a target="_blank" rel="noreferrer" href={dataUser.facebook}>
         <img className="contact-img" src={facebook} />
       </a>
-      <a to="/messages">
+      <a target="_blank" rel="noreferrer" href="/messages">
         <img className="contact-img" src={gmail} />
       </a>
-      <a>
+      <a target="_blank" rel="noreferrer" href={dataUser.linkedin}>
         <img className="contact-img" src={linkedin} />
       </a>
     </div>
