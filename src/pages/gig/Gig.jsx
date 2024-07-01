@@ -176,8 +176,9 @@ export const Gig = () => {
                         </button>
                       </div>
                       <button>
-                        <a href={dataUser.resume}></a>
-                        Download CV
+                        <a href={dataUser.resume} style={{ color: "#000" }}>
+                          Download CV
+                        </a>
                       </button>
                     </div>
                     {open && <Dropdown dataUser={dataUser} />}
