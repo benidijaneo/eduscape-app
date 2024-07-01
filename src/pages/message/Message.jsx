@@ -1,27 +1,23 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
-import newRequest from '../../utils/newRequest';
-import './Message.scss';
-import backarrow from '/img/back-arrow-50.png';
-import gmeet from '/img/gmeet.png';
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query';
+import React from "react";
+import { Link, useParams } from "react-router-dom";
+import newRequest from "../../utils/newRequest";
+import "./Message.scss";
+import backarrow from "/img/back-arrow-50.png";
+import gmeet from "/img/gmeet.png";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export const Message = () => {
   const { id } = useParams();
 
-  const idParams = id.split('sepa');
+  const idParams = id.split("sepa");
   const [conversationID, gmeetLink] = idParams;
 
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ['messages'],
+    queryKey: ["messages"],
     queryFn: () =>
       newRequest.get(`/messages/${conversationID}`).then((res) => {
         return res.data;
@@ -33,7 +29,7 @@ export const Message = () => {
       return newRequest.post(`/messages`, message);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(['messages']);
+      queryClient.invalidateQueries(["messages"]);
     },
   });
 
@@ -43,12 +39,12 @@ export const Message = () => {
       conversationId: conversationID,
       desc: e.target[0].value,
     });
-    e.target[0].value = '';
+    e.target[0].value = "";
   };
 
   const ssl = (data) => {
-    const ht = data.split(':')[0] + 's';
-    return ht + ':' + data.split(':')[1];
+    const ht = data.split(":")[0] + "s";
+    return ht + ":" + data.split(":")[1];
   };
 
   console.log(data);
@@ -57,7 +53,7 @@ export const Message = () => {
   // async function getLamar(id) {
   //   await newRequest.get(`/single/${id}`).then((res) => console.log(res));
   // }
-  const conData = JSON.parse(localStorage.getItem('conversations'));
+  const conData = JSON.parse(localStorage.getItem("conversations"));
   const sellerImg = conData[0].sellerImg;
   // getLamar(data.conversationId);
   return (
@@ -67,23 +63,20 @@ export const Message = () => {
           <Link to="/messages">
             <img src={backarrow} height={25} width={25} />
           </Link>
-          <a
-            href={`https://meet.google.com/${gmeetLink}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <img
-              src={gmeet}
-              alt="gmeet-icon"
-              height={35}
-              width={35}
-            />
-          </a>
+          {gmeetLink && (
+            <a
+              href={`https://meet.google.com/${gmeetLink}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img src={gmeet} alt="gmeet-icon" height={35} width={35} />
+            </a>
+          )}
         </span>
         {isLoading ? (
-          'loading'
+          "loading"
         ) : error ? (
-          'error'
+          "error"
         ) : (
           <div className="messages">
             {data.map((m) => {
@@ -94,9 +87,7 @@ export const Message = () => {
               return (
                 <div
                   className={
-                    m.userId === currentUser._id
-                      ? 'owner item'
-                      : 'item'
+                    m.userId === currentUser._id ? "owner item" : "item"
                   }
                   key={m._id}
                 >
