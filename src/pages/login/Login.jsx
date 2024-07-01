@@ -17,12 +17,25 @@ export const Login = () => {
         username,
         password,
       });
-      localStorage.setItem("currentUser", JSON.stringify(res.data));
 
-      if (res.data.isAdmin == true) {
-        navigate("/eduscape-admin");
+      if (!res.data.isSeller) {
+        localStorage.setItem("currentUser", JSON.stringify(res.data));
+
+        if (res.data.isAdmin) {
+          navigate("/eduscape-admin");
+        } else {
+          navigate("/");
+        }
+      } else if (res.data.isApproved === false) {
+        setError("You are not yet approved.");
       } else {
-        navigate("/");
+        localStorage.setItem("currentUser", JSON.stringify(res.data));
+
+        if (res.data.isAdmin) {
+          navigate("/eduscape-admin");
+        } else {
+          navigate("/");
+        }
       }
     } catch (err) {
       setError(err.response.data);
